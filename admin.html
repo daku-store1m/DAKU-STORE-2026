@@ -3,36 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAKU ADMIN | VIP CONTROL</title>
+    <title>DAKU MASTER | VIP ADMIN CONTROL</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        :root { --primary: #ff4b2b; --bg: #05070a; --card: #11141d; --accent: #00ffcc; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 50px; }
-        header { padding: 20px; text-align: center; border-bottom: 2px solid var(--primary); background: #000; box-shadow: 0 5px 20px rgba(255,75,43,0.3); }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
         
-        /* Remote/Maintenance */
-        .remote-box { background: #1a1a2e; padding: 20px; margin: 20px; border-radius: 15px; border: 1px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
-        .status-btn { padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        .btn-on { background: #2ecc71; color: white; }
-        .btn-off { background: #e74c3c; color: white; }
+        :root { --primary: #ff4b2b; --secondary: #ff416c; --bg: #05070a; --card: #0f121d; --accent: #00ffcc; --binance: #f3ba2f; }
+        
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 80px; overflow-x: hidden; }
+        
+        /* 🔥 PREMIUM HEADER */
+        header { padding: 20px; background: linear-gradient(to right, #000, #111); border-bottom: 3px solid var(--primary); display: flex; justify-content: center; align-items: center; box-shadow: 0 5px 25px rgba(255, 75, 43, 0.4); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 22px; background: linear-gradient(45deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px; }
 
-        /* Order Cards */
-        .order-card { background: var(--card); border-radius: 20px; padding: 20px; margin: 15px; border: 1px solid #222; position: relative; }
-        .status-badge { position: absolute; top: 15px; right: 15px; font-size: 10px; padding: 5px 12px; border-radius: 10px; font-weight: bold; }
-        .Pending { background: #f1c40f; color: #000; }
-        .Approved { background: var(--accent); color: #000; }
+        /* 🔐 VIP LOGIN BOX */
+        #login-box { max-width: 350px; margin: 100px auto; padding: 40px 30px; background: var(--card); border-radius: 25px; border: 2px solid #222; text-align: center; box-shadow: 0 0 30px rgba(255,75,43,0.1); position: relative; overflow: hidden; }
+        #login-box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); }
+        .log-title { font-family: 'Orbitron'; color: white; font-size: 18px; margin-bottom: 25px; letter-spacing: 1px; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #161a26; border: 1px solid #333; border-radius: 12px; color: white; outline: none; box-sizing: border-box; font-family: 'Poppins'; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255,75,43,0.2); }
+        .btn-log { width: 100%; background: linear-gradient(45deg, var(--primary), var(--secondary)); color: white; border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 14px; font-family: 'Orbitron'; margin-top: 15px; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4); }
 
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .info-box { background: rgba(0,0,0,0.4); padding: 12px; border-radius: 12px; border: 1px solid #333; cursor: pointer; }
-        .info-box small { color: var(--primary); font-size: 10px; display: block; margin-bottom: 3px; font-weight: bold; }
-        .info-box span { font-size: 13px; font-weight: bold; word-break: break-all; }
+        /* 🛠️ MAINTENANCE CONTROL */
+        .m-box { background: #161a26; padding: 25px; margin: 20px; border-radius: 20px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+        .m-title { font-family: 'Orbitron'; font-size: 15px; color: white; letter-spacing: 1px; }
+        .btn-m { padding: 10px 20px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; font-size: 11px; transition: 0.3s; letter-spacing: 1px; }
+        .btn-m:hover { transform: translateY(-2px); }
 
-        .adm-btn { width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .approve { background: var(--accent); color: #000; }
-        .reject { background: #ff4d4d; color: #fff; }
+        /* 📦 ORDER CARDS */
+        #ordersContainer { padding: 0 20px; }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; margin-bottom: 20px; border: 1px solid #222; position: relative; animation: fadeIn 0.5s; overflow: hidden; }
+        .card::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 4px; background: var(--accent); }
+        .card.Pending::before { background: #f1c40f; }
+        
+        .status-badge { position: absolute; top: 15px; right: 15px; font-size: 10px; padding: 6px 12px; border-radius: 8px; font-weight: 900; text-transform: uppercase; font-family: 'Orbitron'; }
+        .status-badge.Pending { background: rgba(241, 196, 15, 0.2); color: #f1c40f; border: 1px solid #f1c40f; }
+        .status-badge.Approved { background: rgba(0, 255, 204, 0.2); color: var(--accent); border: 1px solid var(--accent); }
 
-        #login-box { max-width: 350px; margin: 100px auto; padding: 30px; background: var(--card); border-radius: 25px; border: 1px solid var(--primary); text-align: center; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 10px; background: #000; color: #fff; border: 1px solid #333; box-sizing: border-box; }
+        .plan-title { font-family: 'Orbitron'; font-size: 18px; color: white; margin-bottom: 15px; }
+        .method-tag { font-size: 10px; padding: 3px 8px; border-radius: 5px; margin-left: 10px; font-weight: bold; font-family: 'Poppins'; }
+        .UPI { background: #0088cc; color: white; }
+        .Binance { background: var(--binance); color: black; }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
+        .info-box { background: rgba(0,0,0,0.6); padding: 12px; border-radius: 12px; border: 1px solid #333; cursor: pointer; transition: 0.2s; }
+        .info-box:hover { border-color: var(--primary); background: #161a26; }
+        .info-box small { color: var(--primary); font-size: 10px; display: block; font-weight: bold; margin-bottom: 4px; font-family: 'Orbitron'; }
+        .info-box span { font-size: 13px; font-weight: bold; color: #eee; word-break: break-all; }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-action { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; font-size: 11px; transition: 0.3s; letter-spacing: 1px; }
+        .btn-view { background: #222; color: white; border: 1px solid #444; }
+        .btn-view:hover { background: #333; }
+        .btn-approve { background: var(--accent); color: black; box-shadow: 0 0 15px rgba(0,255,204,0.3); }
+
+        /* FOOTER */
+        footer { padding: 30px 20px; background: #000; border-top: 1px solid #222; text-align: center; margin-top: 40px; }
+        .dev-text { font-size: 11px; color: var(--accent); font-family: 'Orbitron'; letter-spacing: 1px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -41,24 +71,33 @@
 <body onload="checkAuth()">
 
     <div id="login-box" style="display:none;">
-        <h2 style="color:var(--primary)">DAKU ADMIN LOGIN</h2>
-        <input type="email" id="admEmail" placeholder="Enter Admin Email">
-        <input type="password" id="admPass" placeholder="Enter Password">
-        <button onclick="login()" class="adm-btn approve">LOGIN TO PANEL</button>
+        <div class="log-title"><i class="fas fa-user-shield" style="color:var(--primary); font-size:24px; display:block; margin-bottom:10px;"></i> RESTRICTED ACCESS</div>
+        <input type="email" id="email" placeholder="Master Email">
+        <input type="password" id="pass" placeholder="Master Password">
+        <button onclick="login()" class="btn-log">VERIFY ADMIN</button>
     </div>
 
     <div id="admin-panel" style="display:none;">
-        <header><h1>DAKU MASTER CONTROL</h1></header>
+        <header><div class="logo">DAKU MASTER PANEL</div></header>
 
-        <div class="remote-box">
-            <div><b>Store Maintenance</b><br><small id="status-text">Checking...</small></div>
+        <div class="m-box">
             <div>
-                <button class="status-btn btn-on" onclick="setM(false)">OPEN</button>
-                <button class="status-btn btn-off" onclick="setM(true)">CLOSE</button>
+                <div class="m-title">STORE SERVER</div>
+                <small id="status-text" style="color:#888; font-size:11px;">Checking Connection...</small>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-m" style="background:rgba(46, 204, 113, 0.2); color:#2ecc71; border: 1px solid #2ecc71;" onclick="setM(false)">OPEN</button>
+                <button class="btn-m" style="background:rgba(231, 76, 60, 0.2); color:#e74c3c; border: 1px solid #e74c3c;" onclick="setM(true)">CLOSE</button>
             </div>
         </div>
 
         <div id="ordersContainer"></div>
+
+        <footer>
+            <div class="logo" style="font-size: 16px; margin-bottom: 10px;">DAKU YT 1M</div>
+            <p style="font-size:11px; color:#555; margin:0;">&copy; 2026 Admin System Secure. All Rights Reserved.</p>
+            <p class="dev-text" style="margin-top: 8px;">Developed by DAKU YT 1M</p>
+        </footer>
     </div>
 
     <script>
@@ -66,67 +105,91 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth(), db = firebase.firestore();
 
+        // 🛡️ SECURITY CHECK
         function checkAuth() {
             auth.onAuthStateChanged(user => {
-                if(user && user.email === 'priyanshdaku@gmail.com') { // Use this for Login
+                if(user && user.email === 'priyanshdaku@gmail.com') {
                     document.getElementById('login-box').style.display='none';
                     document.getElementById('admin-panel').style.display='block';
-                    loadOrders();
+                    loadDashboard();
                 } else {
                     document.getElementById('login-box').style.display='block';
                 }
             });
         }
 
+        // 🔑 LOGIN FUNCTION
         function login() {
-            const e = document.getElementById('admEmail').value;
-            const p = document.getElementById('admPass').value;
-            auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
+            document.querySelector('.btn-log').innerText = "VERIFYING...";
+            auth.signInWithEmailAndPassword(document.getElementById('email').value, document.getElementById('pass').value)
+            .catch(e => { alert("Access Denied: " + e.message); document.querySelector('.btn-log').innerText = "VERIFY ADMIN"; });
         }
 
-        function setM(v) { db.collection("settings").doc("store").set({ closed: v }, { merge: true }); }
+        // 🛠️ MAINTENANCE TOGGLE
+        function setM(v) { 
+            db.collection("settings").doc("store").set({ closed: v }, { merge: true }); 
+            alert(v ? "STORE CLOSED! 🔴" : "STORE OPENED! 🟢"); 
+        }
 
-        function loadOrders() {
+        // 📦 LOAD ORDERS LIVE
+        function loadDashboard() {
+            // Live Server Status
             db.collection("settings").doc("store").onSnapshot(doc => {
-                document.getElementById('status-text').innerText = doc.data()?.closed ? "Status: CLOSED 🔴" : "Status: OPEN 🟢";
+                const closed = doc.data()?.closed;
+                document.getElementById('status-text').innerHTML = closed 
+                    ? "<span style='color:#e74c3c; font-weight:bold;'>OFFLINE 🔴</span> (Users cannot order)" 
+                    : "<span style='color:#2ecc71; font-weight:bold;'>ONLINE 🟢</span> (Accepting orders)";
             });
 
+            // Live Orders Fetch
             db.collection("orders").orderBy("timestamp", "desc").onSnapshot(snap => {
                 const container = document.getElementById('ordersContainer');
                 container.innerHTML = "";
                 snap.forEach(doc => {
                     const o = doc.data(), id = doc.id;
                     container.innerHTML += `
-                        <div class="order-card">
-                            <span class="status-badge ${o.status}">${o.status}</span>
-                            <div style="font-size:16px; font-weight:bold; color:var(--primary)">${o.plan}</div>
+                        <div class="card ${o.status}">
+                            <div class="status-badge ${o.status}">${o.status}</div>
+                            <div class="plan-title">${o.plan} <span class="method-tag ${o.method}">${o.method}</span></div>
+                            
                             <div class="info-grid">
-                                <div class="info-box" onclick="copy('${o.uid}')"><small>UID 📋</small><span>${o.uid}</span></div>
-                                <div class="info-box" onclick="copy('${o.gid}')"><small>GID 📋</small><span>${o.gid || 'N/A'}</span></div>
-                                <div class="info-box"><small>SERVER</small><span>${o.server}</span></div>
-                                <div class="info-box"><small>METHOD</small><span>${o.method}</span></div>
+                                <div class="info-box" onclick="copy('${o.uid}')" title="Click to Copy"><small>PLAYER UID 📋</small><span>${o.uid}</span></div>
+                                <div class="info-box" onclick="copy('${o.gid}')" title="Click to Copy"><small>GUILD ID 📋</small><span>${o.gid || 'N/A'}</span></div>
+                                <div class="info-box"><small>SERVER (OWL)</small><span>${o.server}</span></div>
+                                <div class="info-box"><small>CUSTOMER</small><span style="font-size:10px; color:#aaa;">${o.email}</span></div>
                             </div>
-                            <button class="adm-btn" style="background:#333; color:white;" onclick="window.open('${o.screenshot}')">VIEW SS</button>
-                            ${o.status === 'Pending' ? `
-                                <button class="adm-btn approve" onclick="updateStatus('${id}', 'Approved')">APPROVE</button>
-                            ` : ''}
+
+                            <div class="btn-group">
+                                <button class="btn-action btn-view" onclick="window.open('${o.screenshot}')"><i class="fas fa-receipt"></i> VIEW PROOF</button>
+                                ${o.status === 'Pending' ? `
+                                    <button class="btn-action btn-approve" onclick="approveOrder('${id}')"><i class="fas fa-check-circle"></i> APPROVE</button>
+                                ` : ''}
+                            </div>
                         </div>
                     `;
                 });
             });
         }
 
-        async function updateStatus(id, s) {
-            await db.collection("orders").doc(id).update({ status: s });
-            if(s === 'Approved') {
+        // ✅ APPROVE & TELEGRAM ALERT
+        async function approveOrder(id) {
+            if(confirm("Mark this order as Approved?")) {
+                await db.collection("orders").doc(id).update({ status: 'Approved' });
+                
+                // Fetch to send details to TG
                 const o = (await db.collection("orders").doc(id).get()).data();
-                const msg = `✅ *ORDER DONE*%0A%0A📦 Plan: ${o.plan}%0A🆔 UID: ${o.uid}%0A🌍 Srv: ${o.server}%0A%0A🔥 Done by Daku!`;
+                const msg = `✅ *DAKU VIP STORE - ORDER COMPLETED*%0A%0A📦 *Plan:* ${o.plan}%0A🆔 *UID:* ${o.uid}%0A🌍 *Server:* ${o.server}%0A💳 *Method:* ${o.method}%0A%0A🔥 _Successfully delivered by Daku YT 1M!_`;
+                
                 fetch(`https://api.telegram.org/bot8677747394:AAEO10zDYYEA_jwC9HH7VoDOCOc7_4eSZDY/sendMessage?chat_id=6829395007&text=${msg}&parse_mode=Markdown`);
+                alert("Order Approved & Customer Notified!");
             }
-            alert("Updated!");
         }
 
-        function copy(t) { navigator.clipboard.writeText(t); alert("Copied!"); }
+        // 📋 COPY FUNCTION
+        function copy(t) { 
+            navigator.clipboard.writeText(t); 
+            alert("Copied: " + t); 
+        }
     </script>
 </body>
 </html>
