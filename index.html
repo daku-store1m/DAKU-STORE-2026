@@ -17,61 +17,112 @@
         
         /* HEADER */
         header { padding: 15px 20px; background: linear-gradient(to right, #000, #111); border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 25px rgba(255, 75, 43, 0.4); position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 20px; background: linear-gradient(45deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 20px; color: var(--primary); letter-spacing: 2px; }
         .head-icons { display: flex; gap: 15px; align-items: center; }
-        .tg-btn { font-size: 26px; color: #0088cc; filter: drop-shadow(0 0 10px #0088cc); text-decoration: none; transition: 0.3s; }
-        .prof-btn { font-size: 26px; color: var(--primary); cursor: pointer; filter: drop-shadow(0 0 10px var(--primary)); transition: 0.3s; }
+        .tg-btn { font-size: 26px; color: #0088cc; text-decoration: none; cursor: pointer; }
+        .prof-btn { font-size: 26px; color: var(--primary); cursor: pointer; }
 
         /* TABS */
-        .nav-tabs { display: flex; overflow-x: auto; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); scrollbar-width: none; }
-        .nav-tabs::-webkit-scrollbar { display: none; }
-        .tab-btn { padding: 12px 25px; background: #1a1e2e; border: 1px solid #333; border-radius: 50px; color: #888; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.4s; font-family: 'Orbitron', sans-serif; font-size: 11px; }
-        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px var(--primary); transform: translateY(-3px); }
+        .nav-tabs { display: flex; overflow-x: auto; gap: 15px; padding: 15px; background: rgba(255,255,255,0.05); }
+        .tab-btn { padding: 12px 25px; background: #1a1e2e; border: 1px solid #333; border-radius: 50px; color: #888; font-weight: bold; cursor: pointer; white-space: nowrap; font-family: 'Orbitron', sans-serif; font-size: 11px; }
+        .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px var(--primary); }
 
-        /* CARDS */
-        .section-container { display: none; padding: 15px; animation: fadeIn 0.4s; }
+        /* SECTIONS */
+        .section-container { display: none; padding: 15px; animation: fadeIn 0.3s; }
         .section-container.active { display: block; }
         .store-list { display: flex; flex-direction: column; gap: 15px; }
         
-        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #222; position: relative; overflow: hidden; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; }
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: var(--primary); }
-        .card:hover { transform: scale(1.02); border-color: var(--primary); box-shadow: 0 0 20px rgba(255,75,43,0.2); }
-
-        .pack-info h3 { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 16px; letter-spacing: 1px; }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #222; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--primary); }
+        .pack-info h3 { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 16px; }
         .pack-info p { margin: 5px 0 0; font-size: 12px; color: #999; }
         .pack-price { text-align: right; }
         .amt { font-size: 20px; font-weight: 900; color: white; display: block; margin-bottom: 8px; font-family: 'Orbitron'; }
-        
-        .btn-buy { background: #0088cc; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; transition: 0.3s; letter-spacing: 1px; }
-        .btn-buy:hover { background: var(--primary); box-shadow: 0 0 15px rgba(255,75,43,0.4); }
+        .btn-buy { background: #0088cc; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 12px; }
 
-        /* MODAL */
-        .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
-        .modal-content { background: #0b0e16; width: 90%; max-width: 400px; padding: 25px; border-radius: 30px; border: 2px solid var(--primary); text-align: center; max-height: 85vh; overflow-y: auto; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #161a26; border: 1px solid #333; border-radius: 15px; color: white; outline: none; box-sizing: border-box; }
+        /* MODALS */
+        .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; }
+        .modal-content { background: #0b0e16; width: 90%; max-width: 380px; padding: 25px; border-radius: 25px; border: 2px solid var(--primary); text-align: center; max-height: 85vh; overflow-y: auto; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #161a26; border: 1px solid #333; border-radius: 12px; color: white; box-sizing: border-box; }
         
-        /* OWL SERVER */
+        /* 🔥 COUNTRY SERVER (OWL) BOX 🔥 */
         .owl-box { background: #161a26; border-radius: 15px; border: 1px solid #333; margin: 10px 0; text-align: left; overflow: hidden; }
         .owl-list { max-height: 120px; overflow-y: auto; }
         .owl-item { padding: 12px 20px; border-bottom: 1px solid #222; cursor: pointer; font-size: 13px; }
         .owl-item.active { background: var(--primary); color: white; }
-
-        /* FOOTER */
-        footer { padding: 40px 20px; background: #000; border-top: 1px solid #222; text-align: center; margin-top: 50px; }
-        .foot-logo { font-family: 'Orbitron'; color: var(--primary); font-size: 18px; margin-bottom: 10px; }
         
         /* BOTTOM NAV */
-        .b-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b0e16; display: flex; justify-content: space-around; padding: 12px 0; border-top: 2px solid var(--primary); z-index: 10000; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
-        .b-item { text-align: center; color: #555; text-decoration: none; font-size: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; flex: 1; }
+        .b-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b0e16; display: flex; justify-content: space-around; padding: 12px 0; border-top: 2px solid var(--primary); z-index: 1000; }
+        .b-item { text-align: center; color: #555; text-decoration: none; font-size: 10px; font-weight: bold; cursor: pointer; flex: 1; }
         .b-item i { font-size: 22px; margin-bottom: 5px; display: block; }
-        .b-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+        .b-item.active { color: var(--primary); }
 
-        /* MY ORDERS */
-        #my-orders-view { display: none; padding: 20px; animation: fadeIn 0.4s; }
-        .order-hist-card { background: #161a26; padding: 15px; border-radius: 15px; border: 1px solid #333; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--primary); }
-
+        #my-orders-view { display: none; padding: 20px; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
+
+    <script>
+        // Variables
+        let uE = "Guest";
+        let srv = "";
+        let method = "";
+
+        // Tab Switch
+        function switchTab(id, btn) {
+            document.querySelectorAll('.section-container').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        // View Switch (Home / Orders)
+        function switchMainView(view, btn) {
+            document.querySelectorAll('.b-item').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            if(view === 'home') {
+                document.getElementById('home-view').style.display = 'block';
+                document.getElementById('my-orders-view').style.display = 'none';
+            } else {
+                document.getElementById('home-view').style.display = 'none';
+                document.getElementById('my-orders-view').style.display = 'block';
+                if(typeof window.fetchMyOrders === 'function') window.fetchMyOrders();
+            }
+        }
+
+        // Open Payment Box
+        function openPay(name, price, type) {
+            document.getElementById('mName').innerText = name;
+            document.getElementById('mPrice').innerText = "AMOUNT: ₹" + price;
+            document.getElementById('g_box').style.display = (type === 'g') ? 'block' : 'none';
+            document.getElementById('mModal').style.display = 'flex';
+        }
+
+        // Modals
+        function openProfile() { document.getElementById('profModal').style.display = 'flex'; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        
+        // 🔥 COUNTRY SELECTOR FIX (OWL SERVER) 🔥
+        function selOwl(v, e) { 
+            srv = v; 
+            document.querySelectorAll('.owl-item').forEach(o => o.classList.remove('active')); 
+            e.classList.add('active'); 
+        }
+        function filterOwl() { 
+            let v = document.getElementById('owl_search').value.toLowerCase(); 
+            document.querySelectorAll('.owl-item').forEach(o => {
+                o.style.display = o.innerText.toLowerCase().includes(v) ? "" : "none";
+            }); 
+        }
+        
+        // Payment Method Select
+        function setM(m) { 
+            method = m; 
+            document.getElementById('u_info').style.display = (m==='UPI') ? 'block' : 'none'; 
+            document.getElementById('b_info').style.display = (m==='Binance') ? 'block' : 'none'; 
+            document.getElementById('b1').style.background = (m==='UPI') ? 'var(--primary)' : '#222'; 
+            document.getElementById('b2').style.background = (m==='Binance') ? 'var(--binance)' : '#222'; 
+        }
+    </script>
 </head>
 <body>
 
@@ -92,8 +143,8 @@
         </div>
 
         <div id="topup" class="section-container active"><div class="store-list">
-            <div class="card"><div class="pack-info"><h3>100 Diamonds</h3><p>Instant Direct Topup</p></div><div class="pack-price"><span class="amt">₹80</span><button class="btn-buy" onclick="openPay('100💎','80','p')">BUY</button></div></div>
-            <div class="card"><div class="pack-info"><h3>520 Diamonds</h3><p>Most Popular Pack</p></div><div class="pack-price"><span class="amt">₹400</span><button class="btn-buy" onclick="openPay('520💎','400','p')">BUY</button></div></div>
+            <div class="card"><div class="pack-info"><h3>100 Diamonds</h3><p>Instant Delivery</p></div><div class="pack-price"><span class="amt">₹80</span><button class="btn-buy" onclick="openPay('100💎','80','p')">BUY</button></div></div>
+            <div class="card"><div class="pack-info"><h3>520 Diamonds</h3><p>Popular Pack</p></div><div class="pack-price"><span class="amt">₹400</span><button class="btn-buy" onclick="openPay('520💎','400','p')">BUY</button></div></div>
             <div class="card"><div class="pack-info"><h3>1060 Diamonds</h3><p>Best Value</p></div><div class="pack-price"><span class="amt">₹800</span><button class="btn-buy" onclick="openPay('1060💎','800','p')">BUY</button></div></div>
         </div></div>
 
@@ -105,9 +156,9 @@
         </div></div>
 
         <div id="war" class="section-container"><div class="store-list">
-            <div class="card"><div class="pack-info"><h3>Starter 10K</h3><p>1 Month War Service</p></div><div class="pack-price"><span class="amt">₹2000</span><button class="btn-buy" onclick="openPay('10K War','2000','g')">ORDER</button></div></div>
-            <div class="card"><div class="pack-info"><h3>Master 20K</h3><p>3 Months War Service</p></div><div class="pack-price"><span class="amt">₹5000</span><button class="btn-buy" onclick="openPay('20K War','5000','g')">ORDER</button></div></div>
-            <div class="card"><div class="pack-info"><h3>GM 100K</h3><p>1 Year War Service</p></div><div class="pack-price"><span class="amt">₹35000</span><button class="btn-buy" onclick="openPay('100K War','35000','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Starter 10K</h3><p>1 Month Service</p></div><div class="pack-price"><span class="amt">₹2000</span><button class="btn-buy" onclick="openPay('10K War','2000','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Master 20K</h3><p>3 Months Service</p></div><div class="pack-price"><span class="amt">₹5000</span><button class="btn-buy" onclick="openPay('20K War','5000','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>GM 100K</h3><p>1 Year Service</p></div><div class="pack-price"><span class="amt">₹35000</span><button class="btn-buy" onclick="openPay('100K War','35000','g')">ORDER</button></div></div>
         </div></div>
 
         <div id="glory" class="section-container"><div class="store-list">
@@ -117,31 +168,26 @@
             <div class="card"><div class="pack-info"><h3>Full Match</h3><p>Full Guild Glory</p></div><div class="pack-price"><span class="amt">₹1500</span><button class="btn-buy" onclick="openPay('Full Match','1500','g')">ORDER</button></div></div>
         </div></div>
 
-        <footer>
-            <div class="foot-logo">DAKU STORE</div>
-            <p style="font-size:12px; color:#666;">Premium Gaming Services & Auto-Delivery</p>
-            <p style="font-size: 11px; color: #555; margin: 20px 0 0;">&copy; 2026 DAKU STORE. All Rights Reserved.</p>
+        <footer style="margin-top:40px; padding:30px; text-align:center; background:#000; border-top:1px solid #333;">
+            <div style="color:var(--primary); font-family:'Orbitron'; font-size:18px;">DAKU STORE</div>
+            <p style="color:#555; font-size:11px;">&copy; 2026 DAKU STORE. All Rights Reserved.</p>
         </footer>
     </div>
 
     <div id="my-orders-view">
-        <h2 style="font-family:'Orbitron'; color:var(--primary); text-align:center; margin-bottom:20px;"><i class="fas fa-list-alt"></i> MY ORDERS</h2>
-        <div id="orders-list-box">
-            <p style="text-align:center; color:#777;">Loading your orders...</p>
-        </div>
+        <h2 style="font-family:'Orbitron'; color:var(--primary); text-align:center;"><i class="fas fa-list-alt"></i> MY ORDERS</h2>
+        <div id="orders-list-box"><p style="text-align:center; color:#777;">Please login to see orders.</p></div>
     </div>
 
     <div id="profModal" class="modal">
-        <div class="modal-content" style="max-width: 320px;">
-            <i class="fas fa-user-shield" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
-            <h2 style="font-family:'Orbitron'; color:white; margin:0;">MY PROFILE</h2>
-            <div style="background: #161a26; padding: 15px; border-radius: 15px; margin: 20px 0; border: 1px solid #333; text-align:left;">
-                <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">REGISTERED EMAIL</small>
-                <div id="uEmailText" style="color:white; font-size:13px; font-weight:bold; margin-bottom: 10px; word-break: break-all;">Loading...</div>
-                <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">ACCOUNT STATUS</small>
-                <div style="color:var(--accent); font-size:13px; font-weight:bold;">Active 🟢</div>
+        <div class="modal-content">
+            <i class="fas fa-user-shield" style="font-size: 40px; color: var(--primary);"></i>
+            <h2 style="font-family:'Orbitron'; color:white;">MY PROFILE</h2>
+            <div style="background: #161a26; padding: 15px; border-radius: 15px; margin: 15px 0; border: 1px solid #333; text-align:left;">
+                <small style="color:var(--primary); font-size:10px;">EMAIL</small>
+                <div id="uEmailText" style="color:white; font-size:14px; font-weight:bold;">Guest User</div>
             </div>
-            <button class="btn-buy" onclick="logout()" style="width:100%; padding:15px; font-size:14px; background:linear-gradient(45deg, #e74c3c, #c0392b);">SECURE LOGOUT</button>
+            <button class="btn-buy" onclick="logout()" style="width:100%; background:red;">SECURE LOGOUT</button>
             <p onclick="closeModal('profModal')" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CLOSE</p>
         </div>
     </div>
@@ -150,10 +196,12 @@
         <div class="modal-content">
             <h2 id="mName" style="color:var(--primary); font-family:'Orbitron'; margin:0;"></h2>
             <p id="mPrice" style="color:var(--accent); font-weight:bold; margin:5px 0;"></p>
+            
             <input type="number" id="uid" placeholder="Enter Player UID">
-            <div id="g_box" style="display:none"><input type="number" id="gid" placeholder="Enter Guild ID (GID)"></div>
+            <div id="g_box" style="display:none"><input type="number" id="gid" placeholder="Enter Guild ID"></div>
+            
             <div class="owl-box">
-                <input type="text" placeholder="🔍 Search Owl Server..." onkeyup="filterOwl()" id="owl_search" style="margin:0; border-radius:0; background:#111; border:none; border-bottom:1px solid #333;">
+                <input type="text" placeholder="🔍 Search Server..." onkeyup="filterOwl()" id="owl_search" style="margin:0; border-radius:0; background:#111; border:none; border-bottom:1px solid #333;">
                 <div class="owl-list" id="ol">
                     <div class="owl-item" onclick="selOwl('India 🇮🇳', this)">India 🇮🇳</div>
                     <div class="owl-item" onclick="selOwl('Bangladesh 🇧🇩', this)">Bangladesh 🇧🇩</div>
@@ -164,18 +212,22 @@
                     <div class="owl-item" onclick="selOwl('Nepal 🇳🇵', this)">Nepal 🇳🇵</div>
                 </div>
             </div>
+
             <div style="display:flex; gap:10px; margin:15px 0;">
-                <button onclick="setM('UPI')" id="b1" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold;">UPI</button>
-                <button onclick="setM('Binance')" id="b2" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold;">BINANCE</button>
+                <button onclick="setM('UPI')" id="b1" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold; cursor:pointer;">UPI</button>
+                <button onclick="setM('Binance')" id="b2" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold; cursor:pointer;">BINANCE</button>
             </div>
-            <div id="u_info" style="display:none; padding:15px; background:white; border-radius:20px; margin-bottom:15px;">
+
+            <div id="u_info" style="display:none; padding:15px; background:white; border-radius:15px; margin-bottom:15px;">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=priyanshdaku@gmail.com" style="width:130px;">
                 <p style="color:black; font-size:12px; margin-top:5px; font-weight:bold;">UPI: priyanshdaku@gmail.com</p>
             </div>
-            <div id="b_info" style="display:none; padding:15px; background:var(--binance); color:black; border-radius:15px; font-weight:bold; margin-bottom:15px;">BINANCE PAY ID: 556695942</div>
+            <div id="b_info" style="display:none; padding:15px; background:var(--binance); color:black; border-radius:15px; font-weight:bold; margin-bottom:15px;">BINANCE ID: 556695942</div>
+
             <input type="file" id="file" accept="image/*" style="margin-bottom:10px;">
             <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" style="margin: 10px auto;"></div>
-            <button class="btn-buy" id="subBtn" onclick="submitOrder()" style="width:100%; padding:15px; font-size:16px; margin-top:5px;">CONFIRM ORDER</button>
+
+            <button class="btn-buy" id="subBtn" onclick="submitOrder()" style="width:100%; padding:15px; font-size:16px;">CONFIRM ORDER</button>
             <p onclick="closeModal('mModal')" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CANCEL</p>
         </div>
     </div>
@@ -191,74 +243,46 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     
     <script>
-        // UI FUNCTIONS (Ye humesha chalenge)
-        function switchTab(id, b) { 
-            document.querySelectorAll('.section-container').forEach(s => s.classList.remove('active')); 
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
-            b.classList.add('active'); 
-        }
+        try {
+            const firebaseConfig = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const db = firebase.firestore();
 
-        function switchMainView(view, btn) {
-            document.querySelectorAll('.b-item').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            if(view === 'home') {
-                document.getElementById('home-view').style.display = 'block';
-                document.getElementById('my-orders-view').style.display = 'none';
-            } else {
-                document.getElementById('home-view').style.display = 'none';
-                document.getElementById('my-orders-view').style.display = 'block';
-                fetchMyOrders();
-            }
-        }
+            // Siletly check user
+            auth.onAuthStateChanged(user => { 
+                if(user) {
+                    uE = user.email; 
+                    document.getElementById('uEmailText').innerText = uE; 
+                    if(typeof window.fetchMyOrders === 'function') window.fetchMyOrders(); 
+                }
+            });
 
-        function openPay(n, p, t) { 
-            document.getElementById('mName').innerText=n; 
-            document.getElementById('mPrice').innerText="AMOUNT: ₹"+p; 
-            document.getElementById('g_box').style.display=(t==='g')?'block':'none'; 
-            document.getElementById('mModal').style.display='flex'; 
-        }
+            window.fetchMyOrders = function() {
+                if(uE === "Guest") return;
+                db.collection("orders").where("email", "==", uE).onSnapshot(snap => {
+                    let list = document.getElementById('orders-list-box');
+                    list.innerHTML = "";
+                    if(snap.empty) { list.innerHTML = "<p style='color:#777; text-align:center;'>No orders found.</p>"; return; }
+                    snap.forEach(doc => {
+                        let o = doc.data();
+                        let color = o.status === 'Pending' ? '#f1c40f' : 'var(--accent)';
+                        list.innerHTML += `<div class="order-hist-card" style="border-left-color: ${color};">
+                            <div><div style="font-size:15px; color:white; font-family:'Orbitron';">${o.plan}</div><div style="font-size:11px; color:#888;">UID: ${o.uid} | Srv: ${o.server}</div></div>
+                            <div style="color:${color}; font-weight:bold; font-size:10px; background:rgba(0,0,0,0.5); padding:5px; border-radius:5px;">${o.status.toUpperCase()}</div>
+                        </div>`;
+                    });
+                });
+            };
 
-        function openProfile() { document.getElementById('profModal').style.display = 'flex'; }
-        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
-        
-        function selOwl(v, e) { srv=v; document.querySelectorAll('.owl-item').forEach(o=>o.classList.remove('active')); e.classList.add('active'); }
-        function filterOwl() { let v=document.getElementById('owl_search').value.toLowerCase(); document.querySelectorAll('.owl-item').forEach(o=>o.style.display=o.innerText.toLowerCase().includes(v)?"":"none"); }
-        
-        function setM(m) { 
-            method=m; 
-            document.getElementById('u_info').style.display=(m==='UPI')?'block':'none'; 
-            document.getElementById('b_info').style.display=(m==='Binance')?'block':'none'; 
-            document.getElementById('b1').style.background=(m==='UPI')? 'var(--primary)':'#222'; 
-            document.getElementById('b2').style.background=(m==='Binance')? 'var(--binance)':'#222'; 
-        }
+            window.logout = function() { auth.signOut().then(() => { window.location.href='login.html'; }); };
 
-        // DATABASE GLOBALS
-        let uE = "Guest";
-        let srv = "";
-        let method = "";
-        const firebaseConfig = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
-
-        // INITIALIZE DATABASE
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // CHECK LOGIN & FETCH ORDERS
-        auth.onAuthStateChanged(user => { 
-            if(user) {
-                uE = user.email; 
-                document.getElementById('uEmailText').innerText = uE; 
-                fetchMyOrders(); 
-            } else {
-                window.location.href='login.html'; 
-            }
-        });
-
-        function fetchMyOrders() {
-            if(uE === "Guest") return;
-            db.collection("orders").where("email", "==", uE).onSnapshot(snap => {
-                let list = document.getElementById('orders-list-box');
-                list.innerHTML = "";
-                if(snap.empty) {
-                    list.innerHTML = "
+            // 🔥 ORDER SUBMISSION TO DATABASE 🔥
+            window.submitOrder = async function() {
+                if(uE === "Guest") {
+                    alert("Order karne ke liye pehle Login karna padega bhai!");
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const u = document.getElementById('uid').value;
+                const f = document.getElementById('file').files[0];
