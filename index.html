@@ -6,8 +6,8 @@
     <title>DAKU STORE | VIP GLOBAL STORE</title>
     
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
         
@@ -39,7 +39,6 @@
 
         .pack-info h3 { margin: 0; font-family: 'Orbitron', sans-serif; font-size: 16px; letter-spacing: 1px; }
         .pack-info p { margin: 5px 0 0; font-size: 12px; color: #999; }
-        
         .pack-price { text-align: right; }
         .amt { font-size: 20px; font-weight: 900; color: white; display: block; margin-bottom: 8px; font-family: 'Orbitron'; }
         
@@ -74,7 +73,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body onload="init()">
+<body>
 
     <header>
         <div class="logo">DAKU STORE</div>
@@ -122,7 +121,6 @@
             <div class="foot-logo">DAKU STORE</div>
             <p style="font-size:12px; color:#666;">Premium Gaming Services & Auto-Delivery</p>
             <p style="font-size: 11px; color: #555; margin: 20px 0 0;">&copy; 2026 DAKU STORE. All Rights Reserved.</p>
-            <p style="font-size: 11px; color: var(--accent); margin-top: 5px;">Developed by <b>DAKU STORE</b></p>
         </footer>
     </div>
 
@@ -137,17 +135,14 @@
         <div class="modal-content" style="max-width: 320px;">
             <i class="fas fa-user-shield" style="font-size: 50px; color: var(--primary); margin-bottom: 15px;"></i>
             <h2 style="font-family:'Orbitron'; color:white; margin:0;">MY PROFILE</h2>
-            
             <div style="background: #161a26; padding: 15px; border-radius: 15px; margin: 20px 0; border: 1px solid #333; text-align:left;">
                 <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">REGISTERED EMAIL</small>
-                <div id="uEmailText" style="color:white; font-size:13px; font-weight:bold; margin-bottom: 10px; word-break: break-all;">Guest User</div>
-                
+                <div id="uEmailText" style="color:white; font-size:13px; font-weight:bold; margin-bottom: 10px; word-break: break-all;">Loading...</div>
                 <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">ACCOUNT STATUS</small>
                 <div style="color:var(--accent); font-size:13px; font-weight:bold;">Active 🟢</div>
             </div>
-
             <button class="btn-buy" onclick="logout()" style="width:100%; padding:15px; font-size:14px; background:linear-gradient(45deg, #e74c3c, #c0392b);">SECURE LOGOUT</button>
-            <p onclick="document.getElementById('profModal').style.display='none'" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CLOSE DASHBOARD</p>
+            <p onclick="closeModal('profModal')" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CLOSE</p>
         </div>
     </div>
 
@@ -155,10 +150,8 @@
         <div class="modal-content">
             <h2 id="mName" style="color:var(--primary); font-family:'Orbitron'; margin:0;"></h2>
             <p id="mPrice" style="color:var(--accent); font-weight:bold; margin:5px 0;"></p>
-            
             <input type="number" id="uid" placeholder="Enter Player UID">
             <div id="g_box" style="display:none"><input type="number" id="gid" placeholder="Enter Guild ID (GID)"></div>
-            
             <div class="owl-box">
                 <input type="text" placeholder="🔍 Search Owl Server..." onkeyup="filterOwl()" id="owl_search" style="margin:0; border-radius:0; background:#111; border:none; border-bottom:1px solid #333;">
                 <div class="owl-list" id="ol">
@@ -171,23 +164,19 @@
                     <div class="owl-item" onclick="selOwl('Nepal 🇳🇵', this)">Nepal 🇳🇵</div>
                 </div>
             </div>
-
             <div style="display:flex; gap:10px; margin:15px 0;">
                 <button onclick="setM('UPI')" id="b1" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold;">UPI</button>
                 <button onclick="setM('Binance')" id="b2" style="flex:1; padding:12px; border-radius:10px; border:none; background:#222; color:white; font-weight:bold;">BINANCE</button>
             </div>
-
             <div id="u_info" style="display:none; padding:15px; background:white; border-radius:20px; margin-bottom:15px;">
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=priyanshdaku@gmail.com" style="width:130px;">
                 <p style="color:black; font-size:12px; margin-top:5px; font-weight:bold;">UPI: priyanshdaku@gmail.com</p>
             </div>
             <div id="b_info" style="display:none; padding:15px; background:var(--binance); color:black; border-radius:15px; font-weight:bold; margin-bottom:15px;">BINANCE PAY ID: 556695942</div>
-
             <input type="file" id="file" accept="image/*" style="margin-bottom:10px;">
             <div class="cf-turnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" style="margin: 10px auto;"></div>
-
             <button class="btn-buy" id="subBtn" onclick="submitOrder()" style="width:100%; padding:15px; font-size:16px; margin-top:5px;">CONFIRM ORDER</button>
-            <p onclick="document.getElementById('mModal').style.display='none'" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CANCEL</p>
+            <p onclick="closeModal('mModal')" style="margin-top:15px; cursor:pointer; font-size:12px; color:#555;">CANCEL</p>
         </div>
     </div>
 
@@ -200,29 +189,19 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    
     <script>
-        const firebaseConfig = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth(), db = firebase.firestore();
-        let uE="Guest", srv="", method="";
-
-        // INITIALIZE (Error-free function)
-        function init() {
-            auth.onAuthStateChanged(user => { 
-                if(user) {
-                    uE = user.email; 
-                    document.getElementById('uEmailText').innerText = uE; 
-                    fetchMyOrders(); 
-                } else {
-                    window.location.href='login.html'; 
-                }
-            }); 
+        // UI FUNCTIONS (Ye humesha chalenge)
+        function switchTab(id, b) { 
+            document.querySelectorAll('.section-container').forEach(s => s.classList.remove('active')); 
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+            b.classList.add('active'); 
         }
 
         function switchMainView(view, btn) {
             document.querySelectorAll('.b-item').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             if(view === 'home') {
                 document.getElementById('home-view').style.display = 'block';
                 document.getElementById('my-orders-view').style.display = 'none';
@@ -233,22 +212,53 @@
             }
         }
 
+        function openPay(n, p, t) { 
+            document.getElementById('mName').innerText=n; 
+            document.getElementById('mPrice').innerText="AMOUNT: ₹"+p; 
+            document.getElementById('g_box').style.display=(t==='g')?'block':'none'; 
+            document.getElementById('mModal').style.display='flex'; 
+        }
+
+        function openProfile() { document.getElementById('profModal').style.display = 'flex'; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = 'none'; }
+        
+        function selOwl(v, e) { srv=v; document.querySelectorAll('.owl-item').forEach(o=>o.classList.remove('active')); e.classList.add('active'); }
+        function filterOwl() { let v=document.getElementById('owl_search').value.toLowerCase(); document.querySelectorAll('.owl-item').forEach(o=>o.style.display=o.innerText.toLowerCase().includes(v)?"":"none"); }
+        
+        function setM(m) { 
+            method=m; 
+            document.getElementById('u_info').style.display=(m==='UPI')?'block':'none'; 
+            document.getElementById('b_info').style.display=(m==='Binance')?'block':'none'; 
+            document.getElementById('b1').style.background=(m==='UPI')? 'var(--primary)':'#222'; 
+            document.getElementById('b2').style.background=(m==='Binance')? 'var(--binance)':'#222'; 
+        }
+
+        // DATABASE GLOBALS
+        let uE = "Guest";
+        let srv = "";
+        let method = "";
+        const firebaseConfig = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
+
+        // INITIALIZE DATABASE
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        // CHECK LOGIN & FETCH ORDERS
+        auth.onAuthStateChanged(user => { 
+            if(user) {
+                uE = user.email; 
+                document.getElementById('uEmailText').innerText = uE; 
+                fetchMyOrders(); 
+            } else {
+                window.location.href='login.html'; 
+            }
+        });
+
         function fetchMyOrders() {
             if(uE === "Guest") return;
             db.collection("orders").where("email", "==", uE).onSnapshot(snap => {
                 let list = document.getElementById('orders-list-box');
                 list.innerHTML = "";
                 if(snap.empty) {
-                    list.innerHTML = "<p style='text-align:center; color:#777; margin-top:30px;'>No orders found. Buy something!</p>";
-                    return;
-                }
-                
-                let orders = [];
-                snap.forEach(doc => orders.push(doc.data()));
-                orders.sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
-
-                orders.forEach(o => {
-                    let color = o.status === 'Pending' ? '#f1c40f' : 'var(--accent)';
-                    list.innerHTML += `
-
-    
+                    list.innerHTML = "
