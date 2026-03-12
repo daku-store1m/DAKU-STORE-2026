@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAKU YT 1M | VIP GLOBAL STORE</title>
+    <title>DAKU STORE | VIP GLOBAL STORE</title>
     
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     
@@ -15,6 +15,13 @@
         
         body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 90px; overflow-x: hidden; }
         
+        /* 🔥 VIP LOADER SCREEN */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 999999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: opacity 0.5s ease; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255, 75, 43, 0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        .loader-text { margin-top: 15px; font-family: 'Orbitron'; color: var(--primary); font-weight: bold; letter-spacing: 2px; animation: pulse 1.5s infinite; font-size: 18px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; text-shadow: 0 0 15px var(--primary); } 50% { opacity: 0.5; text-shadow: none; } }
+
         /* HEADER */
         header { padding: 15px 20px; background: linear-gradient(to right, #000, #111); border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 25px rgba(255, 75, 43, 0.4); position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 20px; background: linear-gradient(45deg, var(--primary), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
@@ -29,7 +36,7 @@
         .tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); box-shadow: 0 0 15px var(--primary); transform: translateY(-3px); }
 
         /* CARDS */
-        .section-container { display: none; padding: 15px; animation: fadeIn 0.5s; }
+        .section-container { display: none; padding: 15px; animation: fadeIn 0.4s; }
         .section-container.active { display: block; }
         .store-list { display: flex; flex-direction: column; gap: 15px; }
         
@@ -57,18 +64,18 @@
         .owl-item { padding: 12px 20px; border-bottom: 1px solid #222; cursor: pointer; font-size: 13px; }
         .owl-item.active { background: var(--primary); color: white; }
 
-        /* FOOTER & NAV */
+        /* FOOTER */
         footer { padding: 40px 20px; background: #000; border-top: 1px solid #222; text-align: center; margin-top: 50px; }
         .foot-logo { font-family: 'Orbitron'; color: var(--primary); font-size: 18px; margin-bottom: 10px; }
         
-        /* 🔥 BOTTOM NAV FIX */
+        /* BOTTOM NAV */
         .b-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b0e16; display: flex; justify-content: space-around; padding: 12px 0; border-top: 2px solid var(--primary); z-index: 10000; box-shadow: 0 -5px 20px rgba(0,0,0,0.5); }
         .b-item { text-align: center; color: #555; text-decoration: none; font-size: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; flex: 1; }
         .b-item i { font-size: 22px; margin-bottom: 5px; display: block; }
         .b-item.active { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
 
-        /* 🔥 MY ORDERS SECTION */
-        #my-orders-view { display: none; padding: 20px; animation: fadeIn 0.5s; }
+        /* MY ORDERS */
+        #my-orders-view { display: none; padding: 20px; animation: fadeIn 0.4s; }
         .order-hist-card { background: #161a26; padding: 15px; border-radius: 15px; border: 1px solid #333; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--primary); }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -76,8 +83,13 @@
 </head>
 <body onload="init()">
 
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">DAKU STORE</div>
+    </div>
+
     <header>
-        <div class="logo">DAKU YT 1M</div>
+        <div class="logo">DAKU STORE</div>
         <div class="head-icons">
             <i class="fas fa-user-circle prof-btn" onclick="openProfile()"></i>
             <a href="https://t.me/DAKU_YT_1M1" target="_blank" class="tg-btn"><i class="fab fa-telegram"></i></a>
@@ -86,10 +98,10 @@
 
     <div id="home-view">
         <div class="nav-tabs">
-            <button class="tab-btn active" onclick="tab('topup', this)">DIAMONDS 💎</button>
-            <button class="tab-btn" onclick="tab('likes', this)">LIKES 👍</button>
-            <button class="tab-btn" onclick="tab('war', this)">GUILD WAR ⚔️</button>
-            <button class="tab-btn" onclick="tab('glory', this)">GLORY 🏆</button>
+            <button class="tab-btn active" onclick="switchTab('topup', this)">DIAMONDS 💎</button>
+            <button class="tab-btn" onclick="switchTab('likes', this)">LIKES 👍</button>
+            <button class="tab-btn" onclick="switchTab('war', this)">GUILD WAR ⚔️</button>
+            <button class="tab-btn" onclick="switchTab('glory', this)">GLORY 🏆</button>
         </div>
 
         <div id="topup" class="section-container active"><div class="store-list">
@@ -112,11 +124,18 @@
         </div></div>
 
         <div id="glory" class="section-container"><div class="store-list">
-            <div class="card"><div class="pack-info"><h3>Mini Glory</h3><p>200k Glory Boost</p></div><div class="pack-price"><span class="amt">₹200</span><button class="btn-buy" onclick="openPay('Mini Glory','200','g')">ORDER DM</button></div></div>
-            <div class="card"><div class="pack-info"><h3>Starter Glory</h3><p>500k Glory Boost</p></div><div class="pack-price"><span class="amt">₹800</span><button class="btn-buy" onclick="openPay('Starter Glory','800','g')">ORDER DM</button></div></div>
-            <div class="card"><div class="pack-info"><h3>Mega Glory</h3><p>1M Glory Boost</p></div><div class="pack-price"><span class="amt">₹1000</span><button class="btn-buy" onclick="openPay('Mega Glory','1000','g')">ORDER DM</button></div></div>
-            <div class="card"><div class="pack-info"><h3>Full Match</h3><p>Full Guild Glory</p></div><div class="pack-price"><span class="amt">₹1500</span><button class="btn-buy" onclick="openPay('Full Match','1500','g')">ORDER DM</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Mini Glory</h3><p>200k Glory Boost</p></div><div class="pack-price"><span class="amt">₹200</span><button class="btn-buy" onclick="openPay('Mini Glory','200','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Starter Glory</h3><p>500k Glory Boost</p></div><div class="pack-price"><span class="amt">₹800</span><button class="btn-buy" onclick="openPay('Starter Glory','800','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Mega Glory</h3><p>1M Glory Boost</p></div><div class="pack-price"><span class="amt">₹1000</span><button class="btn-buy" onclick="openPay('Mega Glory','1000','g')">ORDER</button></div></div>
+            <div class="card"><div class="pack-info"><h3>Full Match</h3><p>Full Guild Glory</p></div><div class="pack-price"><span class="amt">₹1500</span><button class="btn-buy" onclick="openPay('Full Match','1500','g')">ORDER</button></div></div>
         </div></div>
+
+        <footer>
+            <div class="foot-logo">DAKU STORE</div>
+            <p style="font-size:12px; color:#666;">Premium Gaming Services & Auto-Delivery</p>
+            <p style="font-size: 11px; color: #555; margin: 20px 0 0;">&copy; 2026 DAKU STORE. All Rights Reserved.</p>
+            <p style="font-size: 11px; color: var(--accent); margin-top: 5px;">Developed by <b>DAKU STORE</b></p>
+        </footer>
     </div>
 
     <div id="my-orders-view">
@@ -184,13 +203,6 @@
         </div>
     </div>
 
-    <footer>
-        <div class="foot-logo">DAKU YT 1M STORE</div>
-        <p style="font-size:12px; color:#666;">Premium Gaming Services & Auto-Delivery</p>
-        <p style="font-size: 11px; color: #555; margin: 20px 0 0;">&copy; 2026 DAKU YT 1M. All Rights Reserved.</p>
-        <p style="font-size: 11px; color: var(--accent); margin-top: 5px;">Developed by <b>DAKU YT 1M</b></p>
-    </footer>
-
     <nav class="b-nav">
         <div class="b-item active" onclick="switchMainView('home', this)"><i class="fas fa-home"></i>HOME</div>
         <div class="b-item" onclick="switchMainView('orders', this)"><i class="fas fa-list-alt"></i>ORDERS</div>
@@ -206,19 +218,27 @@
         const auth = firebase.auth(), db = firebase.firestore();
         let uE="", srv="", method="";
 
+        // INITIALIZE & HIDE LOADER
         function init() { 
+            // Hide Loader after small delay
+            setTimeout(() => {
+                let loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }, 800);
+
+            // Auth Check
             auth.onAuthStateChanged(user => { 
                 if(user) {
                     uE = user.email; 
                     document.getElementById('uEmailText').innerText = uE; 
-                    fetchMyOrders(); // Automatically load history
+                    fetchMyOrders(); 
                 } else {
                     window.location.href='login.html'; 
                 }
             }); 
         }
 
-        // 🔥 SWITCH BETWEEN HOME & MY ORDERS
         function switchMainView(view, btn) {
             document.querySelectorAll('.b-item').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -233,7 +253,6 @@
             }
         }
 
-        // 🔥 FETCH USER ORDERS FROM FIREBASE
         function fetchMyOrders() {
             db.collection("orders").where("email", "==", uE).onSnapshot(snap => {
                 let list = document.getElementById('orders-list-box');
@@ -245,24 +264,4 @@
                 
                 let orders = [];
                 snap.forEach(doc => orders.push(doc.data()));
-                orders.sort((a,b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
-
-                orders.forEach(o => {
-                    let color = o.status === 'Pending' ? '#f1c40f' : 'var(--accent)';
-                    list.innerHTML += `
-                        <div class="order-hist-card" style="border-left-color: ${color};">
-                            <div>
-                                <div style="font-family:'Orbitron'; font-size:15px; color:white;">${o.plan}</div>
-                                <div style="font-size:11px; color:#888; margin-top:4px;">UID: ${o.uid} | Srv: ${o.server}</div>
-                            </div>
-                            <div style="background:rgba(0,0,0,0.5); padding:5px 10px; border-radius:5px; border:1px solid ${color}; color:${color}; font-size:10px; font-weight:bold; font-family:'Orbitron';">
-                                ${o.status.toUpperCase()}
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-        }
-
-        // TABS, MODALS & LOGOUT
-        function tab(id, b) { document.querySelectorAll('.section-container').forEach(s=>s.classList.remov
+                orders.sort((a,b
