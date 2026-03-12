@@ -81,7 +81,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body onload="init()">
+<body>
 
     <div id="loader">
         <div class="spinner"></div>
@@ -152,10 +152,10 @@
             
             <div style="background: #161a26; padding: 15px; border-radius: 15px; margin: 20px 0; border: 1px solid #333; text-align:left;">
                 <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">REGISTERED EMAIL</small>
-                <div id="uEmailText" style="color:white; font-size:13px; font-weight:bold; margin-bottom: 10px; word-break: break-all;">Loading...</div>
+                <div id="uEmailText" style="color:white; font-size:13px; font-weight:bold; margin-bottom: 10px; word-break: break-all;">Guest User</div>
                 
                 <small style="color:var(--primary); font-family:'Orbitron'; font-size:10px;">ACCOUNT STATUS</small>
-                <div style="color:var(--accent); font-size:13px; font-weight:bold;">Verified Gamer 🟢</div>
+                <div style="color:var(--accent); font-size:13px; font-weight:bold;">Active 🟢</div>
             </div>
 
             <button class="btn-buy" onclick="logout()" style="width:100%; padding:15px; font-size:14px; background:linear-gradient(45deg, #e74c3c, #c0392b);">SECURE LOGOUT</button>
@@ -213,31 +213,32 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
     <script>
+        // 🔥 AUTO-KILL LOADER (Failsafe)
+        setTimeout(() => {
+            let loader = document.getElementById('loader');
+            if(loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 500);
+            }
+        }, 1500); // 1.5 second mein loader hat jayega chahe kuch bhi ho
+
         const firebaseConfig = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth(), db = firebase.firestore();
-        let uE="", srv="", method="";
+        let uE="Guest", srv="", method="";
 
-        // INITIALIZE & HIDE LOADER
-        function init() { 
-            // Hide Loader after small delay
-            setTimeout(() => {
-                let loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => loader.style.display = 'none', 500);
-            }, 800);
-
-            // Auth Check
-            auth.onAuthStateChanged(user => { 
-                if(user) {
-                    uE = user.email; 
-                    document.getElementById('uEmailText').innerText = uE; 
-                    fetchMyOrders(); 
-                } else {
-                    window.location.href='login.html'; 
-                }
-            }); 
-        }
+        // INITIALIZE
+        auth.onAuthStateChanged(user => { 
+            if(user) {
+                uE = user.email; 
+                document.getElementById('uEmailText').innerText = uE; 
+                fetchMyOrders(); 
+            } else {
+                // Agar aapne abhi tak login.html nahi banayi hai, toh ye line usko redirect karti hai.
+                // Agar page ruk raha tha toh isiliye kyunki login.html missig thi.
+                window.location.href='login.html'; 
+            }
+        }); 
 
         function switchMainView(view, btn) {
             document.querySelectorAll('.b-item').forEach(b => b.classList.remove('active'));
@@ -254,14 +255,10 @@
         }
 
         function fetchMyOrders() {
+            if(uE === "Guest") return;
             db.collection("orders").where("email", "==", uE).onSnapshot(snap => {
                 let list = document.getElementById('orders-list-box');
                 list.innerHTML = "";
                 if(snap.empty) {
                     list.innerHTML = "<p style='text-align:center; color:#777; margin-top:30px;'>No orders found. Buy something!</p>";
-                    return;
-                }
-                
-                let orders = [];
-                snap.forEach(doc => orders.push(doc.data()));
-                orders.sort((a,b
+               
