@@ -3,301 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>DAKU STORE | VIP OFFICIAL</title>
     
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
+        :root { --primary: #ff4b2b; --bg: #05070a; --card: #161a26; --accent: #0081c9; }
         
-        :root { 
-            --primary: #ff4b2b; 
-            --bg: #05070a; 
-            --card: #161a26; 
-            --accent: #0081c9; 
-        }
-        
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background: var(--bg); 
-            color: white; 
-            margin: 0; 
-            padding-bottom: 90px; 
-            overflow-x: hidden; 
-        }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; margin: 0; padding-bottom: 90px; overflow-x: hidden; }
 
-        /* LOADER SCREEN */
-        #loader { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: #000; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; z-index: 99999; 
-        }
-        .spinner { 
-            width: 50px; height: 50px; border: 5px solid #111; 
-            border-top: 5px solid var(--primary); border-radius: 50%; 
-            animation: spin 1s linear infinite; 
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* LOADER */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 99999; }
+        .spin { width: 50px; height: 50px; border: 5px solid #111; border-top: 5px solid var(--primary); border-radius: 50%; animation: s 1s linear infinite; }
+        @keyframes s { 100% { transform: rotate(360deg); } }
 
         /* SCREENS */
         #security-wall, #main-store, #maintenance-screen { display: none; }
+        #security-wall { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         
-        #security-wall { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: var(--bg); z-index: 10000; flex-direction: column; 
-            align-items: center; justify-content: center; 
-        }
+        .box { width: 85%; max-width: 380px; background: #0b0e16; padding: 25px; border-radius: 20px; border: 1px solid #222; text-align: center; }
+        input { width: 100%; padding: 13px; margin: 10px 0; background: #0f121d; border: 1px solid #333; border-radius: 10px; color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 13px; background: var(--primary); border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; font-family: 'Orbitron'; }
 
-        .auth-box { 
-            width: 90%; max-width: 380px; text-align: center; 
-            background: #0b0e16; padding: 30px; border-radius: 20px;
-            border: 1px solid #222;
-        }
-
-        #cf-box { margin-bottom: 20px; min-height: 65px; }
-
-        input { 
-            width: 100%; padding: 14px; margin: 10px 0; 
-            background: #0f121d; border: 1px solid #333; 
-            border-radius: 10px; color: white; box-sizing: border-box; 
-        }
-
-        .btn-main { 
-            width: 100%; padding: 14px; background: var(--primary); 
-            border: none; border-radius: 10px; color: white; 
-            font-weight: bold; cursor: pointer; font-family: 'Orbitron'; 
-        }
-
-        header { 
-            padding: 15px 20px; background: #000; border-bottom: 2px solid var(--primary); 
-            display: flex; justify-content: space-between; align-items: center; 
-            position: sticky; top: 0; z-index: 1000; 
-        }
+        /* STORE UI */
+        header { padding: 15px 20px; background: #000; border-bottom: 2px solid var(--primary); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
         .logo { font-family: 'Orbitron'; color: var(--primary); font-weight: 900; font-size: 18px; }
-        
-        .nav-tabs { 
-            display: flex; overflow-x: auto; gap: 10px; padding: 15px; 
-            background: #0a0c14; scrollbar-width: none; 
-        }
-        .tab-btn { 
-            padding: 10px 20px; background: #1a1e2e; border: 1px solid #333; 
-            border-radius: 12px; color: #888; white-space: nowrap; 
-            font-size: 11px; cursor: pointer; font-family: 'Orbitron'; 
-        }
+        .nav-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: #0a0c14; scrollbar-width: none; }
+        .tab-btn { padding: 10px 20px; background: #1a1e2e; border: 1px solid #333; border-radius: 12px; color: #888; white-space: nowrap; font-size: 11px; cursor: pointer; font-family: 'Orbitron'; }
         .tab-btn.active { background: var(--primary); color: white; }
 
-        .section-container { display: none; padding: 15px; }
-        .section-container.active { display: block; }
-        .card { 
-            background: var(--card); border-radius: 20px; padding: 25px; 
-            margin-bottom: 15px; border: 1px solid #222; position: relative; 
-        }
-        .card-price { position: absolute; top: 25px; right: 25px; font-family: 'Orbitron'; font-size: 18px; color: #fff; }
-        .order-now-btn { 
-            background: var(--accent); color: white; border: none; 
-            padding: 12px; border-radius: 10px; width: 100%; 
-            margin-top: 20px; font-family: 'Orbitron'; font-weight: bold; 
-        }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; margin: 15px; border: 1px solid #222; position: relative; }
+        .card-title { font-weight: 700; font-size: 18px; color: #fff; margin-bottom: 5px; }
+        .card-desc { font-size: 13px; color: #888; margin-bottom: 15px; }
+        .price { position: absolute; top: 20px; right: 20px; color: #fff; font-family: 'Orbitron'; font-weight: bold; font-size: 18px; }
+        .buy-btn { width: 100%; padding: 12px; background: var(--accent); border: none; border-radius: 10px; color: white; font-family: 'Orbitron'; margin-top: 10px; font-weight: bold; }
 
-        .b-nav { 
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: #0b0e16; display: flex; justify-content: space-around; 
-            padding: 12px 0; border-top: 1.5px solid var(--primary); z-index: 1000; 
-        }
-        .b-item { text-align: center; color: #555; font-size: 10px; text-decoration: none; cursor: pointer; }
+        /* PING STATUS */
+        .status-dot { height: 8px; width: 8px; background-color: #00ff00; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 8px #00ff00; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* MODALS */
+        .modal { display: none; position: fixed; z-index: 50000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; }
+        .m-cont { background: #0b0e16; width: 90%; max-width: 400px; padding: 25px; border-radius: 20px; border: 2px solid var(--primary); text-align: center; max-height: 85vh; overflow-y: auto; }
+        .owl-box { background: #0f121d; border-radius: 10px; border: 1px solid #333; margin: 10px 0; max-height: 220px; overflow-y: auto; text-align: left; }
+        .owl-item { display: flex; align-items: center; justify-content: space-between; padding: 12px; border-bottom: 1px solid #222; cursor: pointer; color: #ddd; font-size: 13px; }
+        .owl-item.active { background: var(--primary); color: white; }
+        .owl-item small { font-family: 'Orbitron'; font-size: 10px; }
+
+        .b-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #0b0e16; display: flex; justify-content: space-around; padding: 12px 0; border-top: 1.5px solid var(--primary); z-index: 1000; }
+        .b-item { text-align: center; color: #555; font-size: 10px; cursor: pointer; text-decoration: none; }
         .b-item.active { color: var(--primary); }
 
-        .modal { 
-            display: none; position: fixed; z-index: 9999; top: 0; left: 0; 
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95); 
-            justify-content: center; align-items: center; 
-        }
-        .modal-content { 
-            background: #0b0e16; width: 90%; max-width: 400px; 
-            padding: 25px; border-radius: 20px; border: 2px solid var(--primary); 
-            text-align: center; max-height: 85vh; overflow-y: auto; 
-        }
-        .owl-box { 
-            background: #0f121d; border-radius: 10px; border: 1px solid #333; 
-            margin: 10px 0; max-height: 180px; overflow-y: auto; text-align: left; 
-        }
-        .owl-item { padding: 12px; border-bottom: 1px solid #222; cursor: pointer; color: #ddd; }
-        .owl-item.active { background: var(--primary); color: white; }
-
-        .tg-float { 
-            position: fixed; bottom: 85px; right: 20px; background: #0088cc; 
-            color: white; width: 55px; height: 55px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 25px; z-index: 999; box-shadow: 0 0 15px rgba(0,136,204,0.5); 
-        }
+        #maintenance-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 40000; text-align: center; }
+        .tg-float { position: fixed; bottom: 85px; right: 20px; background: #0088cc; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 25px; z-index: 999; }
     </style>
 </head>
 <body>
 
-    <div id="loader">
-        <div class="spinner"></div>
-        <p style="font-family:'Orbitron'; margin-top:15px; color:var(--primary);">DAKU SYSTEM</p>
-    </div>
+    <div id="loader"><div class="spin"></div><p style="font-family:'Orbitron'; margin-top:10px;">DAKU SYSTEM</p></div>
 
     <div id="maintenance-screen">
         <i class="fas fa-tools" style="font-size:60px; color:var(--primary); margin-bottom:20px;"></i>
-        <h2 style="font-family:'Orbitron';">UNDER MAINTENANCE</h2>
-        <p style="color:#888;">Admin is updating servers...</p>
+        <h2 style="font-family:'Orbitron';">OFFLINE</h2>
+        <p>Admin is updating. Please wait!</p>
     </div>
 
     <div id="security-wall">
-        <div class="auth-box">
-            <h2 class="logo" style="font-size:28px; margin-bottom:25px;">DAKU STORE</h2>
-            
-            <div id="cf-box">
-                <div class="cf-turnstile" data-sitekey="0x4AAAAAACpg8DOhPlrB0GpO" data-callback="unlockAuth"></div>
+        <div class="box">
+            <h2 class="logo" style="font-size:28px; margin-bottom:20px;">DAKU STORE</h2>
+            <div id="cf-box" style="margin-bottom:15px; min-height: 65px;">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAACpg8DOhPlrB0GpO" data-callback="unlockForm"></div>
             </div>
-
-            <div id="auth-forms" style="display:none;">
-                <h3 id="auth-title" style="font-family:'Orbitron'; font-size:12px; color:#666;">REGISTER ACCOUNT</h3>
-                <input type="email" id="email" placeholder="Gmail Address">
+            <div id="auth-form" style="display:none;">
+                <h3 id="auth-title" style="font-size:12px; color:#666; font-family:'Orbitron';">LOGIN / REGISTER</h3>
+                <input type="email" id="email" placeholder="Email">
                 <input type="password" id="pass" placeholder="Password">
-                <button class="btn-main" id="authBtn" onclick="handleAuth()">PROCEED</button>
-                <p onclick="toggleAuth()" style="color:var(--accent); cursor:pointer; font-size:11px; margin-top:15px;">Switch Login/Register</p>
+                <button class="btn" id="authBtn" onclick="handleAuth()">PROCEED</button>
             </div>
         </div>
     </div>
 
     <div id="main-store">
-        <header>
-            <div class="logo">DAKU STORE</div>
-            <i class="fas fa-user-circle" style="font-size:22px; cursor:pointer;" onclick="openModal('profModal')"></i>
-        </header>
-
+        <header><div class="logo">DAKU STORE VIP</div><i class="fas fa-user-circle" style="font-size:22px;" onclick="openModal('profModal')"></i></header>
         <div class="nav-tabs">
             <button class="tab-btn active" onclick="switchTab('likes', this)">LIKES 👍</button>
-            <button class="tab-btn" onclick="switchTab('glory', this)">GLORY 🏆</button>
+            <button class="tab-btn" onclick="switchTab('glory', this)">GUILD GLORY 🏆</button>
             <button class="tab-btn" onclick="switchTab('war', this)">WAR ⚔️</button>
             <button class="tab-btn" onclick="switchTab('diamonds', this)">DIAMONDS 💎</button>
         </div>
 
-        <div id="likes" class="section-container active">
-            <div class="card"><div class="card-title">Weekly Starter</div><div class="card-price">₹100</div><button class="order-now-btn" onclick="openPay('Weekly Starter','100','player')">ORDER</button></div>
-            <div class="card"><div class="card-title">Pro Booster</div><div class="card-price">₹170</div><button class="order-now-btn" onclick="openPay('Pro Booster','170','player')">ORDER</button></div>
+        <div id="likes" class="section-container" style="display:block;">
+            <div class="card"><div class="card-title">Weekly Starter</div><div class="card-desc">1540 Total Likes</div><div class="price">₹100</div><button class="buy-btn" onclick="openPay('Weekly Starter','100','player')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Pro Booster</div><div class="card-desc">3300 Total Likes</div><div class="price">₹170</div><button class="buy-btn" onclick="openPay('Pro Booster','170','player')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Elite Monthly</div><div class="card-desc">6600 Total Likes</div><div class="price">₹300</div><button class="buy-btn" onclick="openPay('Elite Monthly','300','player')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Grandmaster</div><div class="card-desc">19800 Total Likes</div><div class="price">₹800</div><button class="buy-btn" onclick="openPay('Grandmaster','800','player')">ORDER NOW</button></div>
         </div>
+
         <div id="glory" class="section-container">
-            <div class="card"><div class="card-title">Mini Glory</div><div class="card-price">₹200</div><button class="order-now-btn" onclick="openPay('Mini Glory','200','guild')">ORDER</button></div>
+            <div class="card"><div class="card-title">Mini Glory</div><div class="card-desc">200k Glory Boost</div><div class="price">₹200</div><button class="buy-btn" onclick="openPay('Mini Glory','200','guild')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Starter Glory</div><div class="card-desc">500k Glory Boost</div><div class="price">₹800</div><button class="buy-btn" onclick="openPay('Starter Glory','800','guild')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Mega Glory</div><div class="card-desc">1M Glory Boost</div><div class="price">₹1000</div><button class="buy-btn" onclick="openPay('Mega Glory','1000','guild')">ORDER NOW</button></div>
+            <div class="card"><div class="card-title">Full Match</div><div class="card-desc">Full Guild Glory</div><div class="price">₹1500</div><button class="buy-btn" onclick="openPay('Full Match','1500','guild')">ORDER NOW</button></div>
         </div>
+
         <div id="war" class="section-container">
-            <div class="card"><div class="card-title">Starter War</div><div class="card-price">₹2000</div><button class="order-now-btn" onclick="openPay('Starter War','2000','guild')">ORDER</button></div>
+            <div class="card"><h3>Starter War</h3><div class="price">₹2000</div><button class="buy-btn" onclick="openPay('Starter War','2000','guild')">ORDER NOW</button></div>
+            <div class="card"><h3>Pro War</h3><div class="price">₹5000</div><button class="buy-btn" onclick="openPay('Pro War','5000','guild')">ORDER NOW</button></div>
         </div>
+
         <div id="diamonds" class="section-container">
-            <div class="card"><div class="card-title">1060 Diamonds</div><div class="card-price">₹800</div><button class="order-now-btn" onclick="openPay('1060 Diamonds','800','player')">ORDER</button></div>
+            <div class="card"><h3>100 Diamonds</h3><div class="price">₹80</div><button class="buy-btn" onclick="openPay('100 Diamonds','80','player')">ORDER NOW</button></div>
+            <div class="card"><h3>1060 Diamonds</h3><div class="price">₹780</div><button class="buy-btn" onclick="openPay('1060 Diamonds','780','player')">ORDER NOW</button></div>
         </div>
 
         <a href="https://t.me/DAKU_YT_1M" class="tg-float" target="_blank"><i class="fab fa-telegram-plane"></i></a>
-
         <nav class="b-nav">
-            <div class="b-item active" onclick="location.reload()"><i class="fas fa-home" style="font-size:20px;"></i><br>HOME</div>
-            <div class="b-item" onclick="openHistory()"><i class="fas fa-history" style="font-size:20px;"></i><br>HISTORY</div>
-            <a href="https://wa.me/60126014273" class="b-item" style="color:#25D366;"><i class="fab fa-whatsapp" style="font-size:20px;"></i><br>HELP</a>
+            <div class="b-item active" onclick="location.reload()"><i class="fas fa-home"></i><br>HOME</div>
+            <div class="b-item" onclick="openHistory()"><i class="fas fa-history"></i><br>HISTORY</div>
+            <a href="https://wa.me/60126014273" class="b-item" style="color:#25D366;"><i class="fab fa-whatsapp"></i><br>HELP</a>
         </nav>
     </div>
 
-    <div id="payModal" class="modal"><div class="modal-content">
-        <h3 id="pName"></h3><p id="pPrice"></p>
+    <div id="payModal" class="modal"><div class="m-cont">
+        <h3 id="pName"></h3><p id="pPrice" style="color:var(--primary); font-weight:bold;"></p>
         <input type="number" id="uid" placeholder="Player UID">
         <div id="gField" style="display:none;"><input type="number" id="gid" placeholder="Guild ID"></div>
+        
+        <p style="text-align:left; font-size:11px; color:#666;">OWL GLOBAL SERVERS:</p>
         <div class="owl-box">
-            <div class="owl-item" onclick="selSrv('India 🇮🇳', this)">India 🇮🇳</div>
-            <div class="owl-item" onclick="selSrv('Bangladesh 🇧🇩', this)">Bangladesh 🇧🇩</div>
-            <div class="owl-item" onclick="selSrv('Pakistan 🇵🇰', this)">Pakistan 🇵🇰</div>
-            <div class="owl-item" onclick="selSrv('Nepal 🇳🇵', this)">Nepal 🇳🇵</div>
-            <div class="owl-item" onclick="selSrv('Brazil 🇧🇷', this)">Brazil 🇧🇷</div>
-            <div class="owl-item" onclick="selSrv('Indonesia 🇮🇩', this)">Indonesia 🇮🇩</div>
-            <div class="owl-item" onclick="selSrv('Mina 🏜️', this)">Mina 🏜️</div>
-            <div class="owl-item" onclick="selSrv('Europe 🇪🇺', this)">Europe 🇪🇺</div>
-            <div class="owl-item" onclick="selSrv('Singapore 🇸🇬', this)">Singapore 🇸🇬</div>
+            <div class="owl-item" onclick="selSrv('India 🇮🇳', this)"><div><span class="status-dot"></span> India 🇮🇳</div><small style="color:#00ff00;">22ms</small></div>
+            <div class="owl-item" onclick="selSrv('Bangladesh 🇧🇩', this)"><div><span class="status-dot"></span> Bangladesh 🇧🇩</div><small style="color:#00ff00;">35ms</small></div>
+            <div class="owl-item" onclick="selSrv('Pakistan 🇵🇰', this)"><div><span class="status-dot"></span> Pakistan 🇵🇰</div><small style="color:#00ff00;">48ms</small></div>
+            <div class="owl-item" onclick="selSrv('Nepal 🇳🇵', this)"><div><span class="status-dot"></span> Nepal 🇳🇵</div><small style="color:#00ff00;">30ms</small></div>
+            <div class="owl-item" onclick="selSrv('Brazil 🇧🇷', this)"><div><span class="status-dot" style="background:#ffcc00; box-shadow:0 0 8px #ffcc00;"></span> Brazil 🇧🇷</div><small style="color:#ffcc00;">140ms</small></div>
+            <div class="owl-item" onclick="selSrv('Indonesia 🇮🇩', this)"><div><span class="status-dot"></span> Indonesia 🇮🇩</div><small style="color:#00ff00;">55ms</small></div>
+            <div class="owl-item" onclick="selSrv('Mina 🏜️', this)"><div><span class="status-dot"></span> Mina 🏜️</div><small style="color:#00ff00;">60ms</small></div>
+            <div class="owl-item" onclick="selSrv('Europe 🇪🇺', this)"><div><span class="status-dot"></span> Europe 🇪🇺</div><small style="color:#00ff00;">90ms</small></div>
+            <div class="owl-item" onclick="selSrv('Thailand 🇹🇭', this)"><div><span class="status-dot"></span> Thailand 🇹🇭</div><small style="color:#00ff00;">40ms</small></div>
+            <div class="owl-item" onclick="selSrv('Vietnam 🇻🇳', this)"><div><span class="status-dot"></span> Vietnam 🇻🇳</div><small style="color:#00ff00;">42ms</small></div>
+            <div class="owl-item" onclick="selSrv('Taiwan 🇹🇼', this)"><div><span class="status-dot"></span> Taiwan 🇹🇼</div><small style="color:#00ff00;">65ms</small></div>
+            <div class="owl-item" onclick="selSrv('Singapore 🇸🇬', this)"><div><span class="status-dot"></span> Singapore 🇸🇬</div><small style="color:#00ff00;">18ms</small></div>
         </div>
-        <div style="display:flex; gap:10px; margin:10px 0;"><button class="btn-main" style="background:#222" onclick="setMth('UPI')">UPI</button><button class="btn-main" style="background:#222" onclick="setMth('Binance')">BINANCE</button></div>
-        <div id="pDet" style="display:none; background:#fff; color:#000; padding:15px; border-radius:15px;">
-            <div id="upiQR" style="display:none;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=upi://pay?pa=priyanshdaku@gmail.com" width="100"></div>
+
+        <div style="display:flex; gap:10px; margin:10px 0;"><button class="btn" style="background:#222" onclick="setMth('UPI')">UPI QR</button><button class="btn" style="background:#222" onclick="setMth('Binance')">BINANCE</button></div>
+        <div id="pDet" style="display:none; background:#fff; padding:10px; border-radius:10px; color:#000;">
+            <div id="upiQR" style="display:none;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=priyanshdaku@gmail.com" width="120"><br>priyanshdaku@gmail.com</div>
             <div id="binID" style="display:none;">Binance ID: 556695942</div>
         </div>
         <input type="file" id="ss" style="margin-top:10px;">
-        <button class="btn-main" id="subBtn" onclick="submitOrder()" style="margin-top:15px;">SUBMIT ORDER</button>
-        <p onclick="closeModal('payModal')" style="cursor:pointer; margin-top:15px; color:#555;">CANCEL</p>
+        <button class="btn" id="subBtn" onclick="submitOrder()" style="margin-top:10px;">SUBMIT ORDER</button>
+        <p onclick="closeModal('payModal')" style="cursor:pointer; margin-top:10px; font-size:12px;">CANCEL</p>
     </div></div>
 
-    <div id="profModal" class="modal"><div class="modal-content"><h3>ACCOUNT</h3><p id="uEm"></p><button class="btn-main" onclick="auth.signOut(); location.reload();" style="background:red;">LOGOUT</button><p onclick="closeModal('profModal')" style="margin-top:15px;">CLOSE</p></div></div>
-    <div id="histModal" class="modal"><div class="modal-content"><h3>HISTORY</h3><div id="hItems"></div><button class="btn-main" onclick="closeModal('histModal')" style="margin-top:15px;">CLOSE</button></div></div>
+    <div id="profModal" class="modal"><div class="m-cont"><h3>ACCOUNT</h3><p id="uEm"></p><button class="btn" onclick="auth.signOut(); location.reload();" style="background:red;">LOGOUT</button><p onclick="closeModal('profModal')" style="margin-top:15px;">CLOSE</p></div></div>
+    <div id="histModal" class="modal"><div class="m-cont"><h3>HISTORY</h3><div id="hItems"></div><button class="btn" onclick="closeModal('histModal')" style="margin-top:15px;">CLOSE</button></div></div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script>
-        // FIREBASE
         const fbConf = { apiKey: "AIzaSyAqEHz5yvkDjud1W1acYjgZ_OkuMtC8WuU", authDomain: "daku-store-f2f40.firebaseapp.com", projectId: "daku-store-f2f40", storageBucket: "daku-store-f2f40.firebasestorage.app", messagingSenderId: "556695942867", appId: "1:556695942867:web:e7ca38cd63e788cee80626" };
         firebase.initializeApp(fbConf);
         const auth = firebase.auth(), db = firebase.firestore();
         let mth = "", srv = "", cfDone = false;
 
-        // 🚀 LOADER FIX & CF BYPASS
-        window.addEventListener('load', () => {
-            setTimeout(() => { document.getElementById('loader').remove(); }, 1200);
-            setTimeout(() => { if(!cfDone) unlockAuth(); }, 3500); // 3.5s Bypass
-        });
-
-        window.unlockAuth = () => {
-            cfDone = true;
-            document.getElementById('cf-box').style.display = 'none';
-            document.getElementById('auth-forms').style.display = 'block';
+        window.onload = () => {
+            setTimeout(() => { if(document.getElementById('loader')) document.getElementById('loader').remove(); }, 1200);
+            setTimeout(() => { if(!cfDone) unlockForm(); }, 3500); 
         };
 
-        auth.onAuthStateChanged(user => {
-            if(user) { document.getElementById('uEm').innerText = user.email; checkM(true); } 
-            else { checkM(false); }
-        });
-
-        function checkM(isL) {
-            db.collection("settings").doc("config").onSnapshot(doc => {
-                const maintenance = doc.exists && doc.data().maintenance === true;
-                if(maintenance) {
-                    document.getElementById('maintenance-screen').style.display = 'flex';
-                    document.getElementById('security-wall').style.display = 'none';
-                    document.getElementById('main-store').style.display = 'none';
-                } else {
-                    document.getElementById('maintenance-screen').style.display = 'none';
-                    if(isL) { document.getElementById('security-wall').style.display = 'none'; document.getElementById('main-store').style.display = 'block'; }
-                    else { document.getElementById('security-wall').style.display = 'flex'; document.getElementById('main-store').style.display = 'none'; }
-                }
-            });
-        }
-
-        window.toggleAuth = () => {
-            const t = document.getElementById('auth-title');
-            t.innerText = t.innerText.includes("REGISTER") ? "LOGIN ACCOUNT" : "REGISTER ACCOUNT";
+        window.unlockForm = () => {
+            cfDone = true;
+            document.getElementById('cf-box').style.display = 'none';
+            document.getElementById('auth-form').style.display = 'block';
         };
 
         window.handleAuth = () => {
-            const e = document.getElementById('email').value, p = document.getElementById('pass').value, btn = document.getElementById('authBtn');
-            if(!e || !p) return alert("Fill all details!");
-            btn.innerText = "WAIT..."; btn.disabled = true;
-            const mode = document.getElementById('auth-title').innerText;
-            if(mode.includes("LOGIN")) {
-                auth.signInWithEmailAndPassword(e, p).catch(err => { alert(err.message); btn.disabled = false; btn.innerText = "PROCEED"; });
-            } else {
-                auth.createUserWithEmailAndPassword(e, p).catch(err => { alert(err.message); btn.disabled = false; btn.innerText = "PROCEED"; });
-            }
+            const e = document.getElementById('email').value, p = document.getElementById('pass').value;
+            if(!e || !p) return alert("Details dalo!");
+            auth.signInWithEmailAndPassword(e,p).catch(() => auth.createUserWithEmailAndPassword(e,p));
         };
 
+        auth.onAuthStateChanged(user => {
+            if(user) {
+                document.getElementById('uEm').innerText = user.email;
+                db.collection("settings").doc("config").onSnapshot(doc => {
+                    if(doc.exists && doc.data().maintenance === true) {
+                        document.getElementById('maintenance-screen').style.display = 'flex';
+                        document.getElementById('security-wall').style.display = 'none';
+                    } else {
+                        document.getElementById('security-wall').style.display = 'none';
+                        document.getElementById('main-store').style.display = 'block';
+                    }
+                });
+            } else { document.getElementById('security-wall').style.display = 'flex'; }
+        });
+
         window.switchTab = (id, b) => {
-            document.querySelectorAll('.section-container').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.section-container').forEach(s => s.style.display = 'none');
             document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active'); b.classList.add('active');
+            document.getElementById(id).style.display = 'block'; b.classList.add('active');
         };
-        
-        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
-        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
 
         window.openPay = (n, p, t) => {
             document.getElementById('pName').innerText = n;
@@ -306,42 +215,34 @@
             openModal('payModal');
         };
 
-        window.selSrv = (v, el) => {
-            srv = v; document.querySelectorAll('.owl-item').forEach(i => i.classList.remove('active')); el.classList.add('active');
-        };
+        window.openModal = (id) => document.getElementById(id).style.display = 'flex';
+        window.closeModal = (id) => document.getElementById(id).style.display = 'none';
+        window.selSrv = (v, el) => { srv = v; document.querySelectorAll('.owl-item').forEach(i => i.classList.remove('active')); el.classList.add('active'); };
+        window.setMth = (m) => { mth = m; document.getElementById('pDet').style.display = 'block'; document.getElementById('upiQR').style.display = m==='UPI'?'block':'none'; document.getElementById('binID').style.display = m==='Binance'?'block':'none'; };
 
-        window.setMth = (m) => {
-            mth = m; document.getElementById('pDet').style.display = 'block';
-            document.getElementById('upiQR').style.display = m === 'UPI' ? 'block' : 'none';
-            document.getElementById('binID').style.display = m === 'Binance' ? 'block' : 'none';
-        };
-
+        // ✅ MULTI-KEY UPLOAD SYSTEM WITH NEW KEYS
         window.submitOrder = async () => {
             const u = document.getElementById('uid').value, f = document.getElementById('ss').files[0], btn = document.getElementById('subBtn');
-            if(!u || !f || !mth || !srv) return alert("Fill all details!");
+            if(!u || !f || !mth || !srv) return alert("Details missing!");
             btn.innerText = "UPLOADING..."; btn.disabled = true;
-            try {
-                const fd = new FormData(); fd.append('image', f);
-                const res = await fetch('https://api.imgbb.com/1/upload?key=0d36746401061994e419c80757e37130', { method: 'POST', body: fd });
-                const img = await res.json();
-                if(!img.success) throw new Error("Upload Fail");
-                const ord = { email: auth.currentUser.email, uid: u, server: srv, plan: document.getElementById('pName').innerText, screenshot: img.data.url, status: "Pending", timestamp: firebase.firestore.FieldValue.serverTimestamp() };
-                await db.collection("orders").add(ord);
-                const msg = `🚨 *NEW ORDER* 🚨\n\n👤 User: ${ord.email}\n📦 Plan: ${ord.plan}\n🆔 UID: ${u}\n🌍 Server: ${srv}\n💰 Method: ${mth}\n\n[Proof](${ord.screenshot})`;
-                await fetch(`https://api.telegram.org/bot8677747394:AAEO10zDYYEA_jwC9HH7VoDOCOc7_4eSZDY/sendMessage`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ chat_id: "6829395007", text: msg, parse_mode: "Markdown" }) });
-                alert("Order Placed!"); location.reload();
-            } catch(e) { alert(e.message); btn.disabled = false; btn.innerText = "SUBMIT ORDER"; }
-        };
+            
+            // 🆕 TERI DONO NAYI API KEYS YAHAN HAIN
+            const keys = ["78923d40e6ec332df5f35ccc57f05aa6", "acd88e9cc5da989e1e35a47d2ede12bb"];
+            let imgUrl = "";
 
-        window.openHistory = async () => {
-            openModal('histModal'); const h = document.getElementById('hItems'); h.innerHTML = "Loading...";
-            const snap = await db.collection("orders").where("email", "==", auth.currentUser.email).orderBy("timestamp", "desc").get();
-            if(snap.empty) return h.innerHTML = "No orders."; h.innerHTML = "";
-            snap.forEach(doc => {
-                const d = doc.data();
-                h.innerHTML += `<div style="background:#1a1e2e; padding:15px; border-radius:12px; margin-bottom:10px; border:1px solid #333; text-align:left;"><span class="status-badge ${d.status==='Pending'?'status-pending':'status-success'}">${d.status}</span><b>${d.plan}</b><br><small>UID: ${d.uid} | ${d.server}</small></div>`;
-            });
-        };
-    </script>
-</body>
-</html>
+            for (let key of keys) {
+                try {
+                    const fd = new FormData(); fd.append('image', f);
+                    const res = await fetch('https://api.imgbb.com/1/upload?key=' + key, { method: 'POST', body: fd });
+                    const r = await res.json();
+                    if(r.success) { imgUrl = r.data.url; break; }
+                } catch (e) { console.log("Key failed, trying next..."); }
+            }
+
+            if(!imgUrl) { alert("Upload Fail! Check Internet or Photo size."); btn.disabled = false; btn.innerText="SUBMIT ORDER"; return; }
+
+            try {
+                await db.collection("orders").add({
+                    email: auth.currentUser.email, uid: u, server: srv, plan: document.getElementById('pName').innerText, screenshot: imgUrl, status: "Pending", timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                const msg = `🚨 *NEW ORDER* 🚨\n👤: ${auth.currentUser.email}\n📦: ${document.getElementById('pName').innerText}\n🆔: ${u}\n🌍: ${srv}\n💰: ${mth}\
