@@ -11,37 +11,28 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); color: white; padding-bottom: 90px; overflow-x: hidden; min-height: 100vh; }
 
-        /* 🔥 PREMIUM LOADER */
-        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 99999999; display: flex; justify-content: center; align-items: center; flex-direction: column; transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
-        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255, 75, 43, 0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* 🛠️ MAINTENANCE */
+        /* 🛠️ MAINTENANCE LOCK */
         #maintenance-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999998; flex-direction: column; align-items: center; justify-content: center; text-align: center; animation: fadeIn 0.5s ease; }
 
         #auth-view { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; padding: 20px; background: radial-gradient(circle, #1a0505 0%, #05070a 100%); animation: fadeIn 0.8s ease; }
         #main-store-view { display: none; }
 
         header { padding: 15px 20px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); border-bottom: 3px solid var(--primary); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px; color: var(--primary); text-shadow: 0 0 10px rgba(255, 75, 43, 0.5); }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px; color: var(--primary); }
         
         .nav-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: rgba(255,255,255,0.02); scrollbar-width: none; }
-        .tab-btn { padding: 10px 22px; background: #1a1e2e; border: 1px solid #333; border-radius: 50px; color: #888; font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 11px; font-family: 'Orbitron'; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .tab-btn:active { transform: scale(0.85); }
+        .tab-btn { padding: 10px 22px; background: #1a1e2e; border: 1px solid #333; border-radius: 50px; color: #888; font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 11px; font-family: 'Orbitron'; transition: 0.3s; }
         .tab-btn.active { background: var(--primary); color: white; box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4); transform: translateY(-3px); }
         
         .section-container { display: none; padding: 5px; }
-        .section-container.active { display: block; animation: slideIn 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
-        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section-container.active { display: block; animation: slideIn 0.5s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #222; margin: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--primary); transition: all 0.3s ease; }
-        .card:hover { transform: scale(1.02); }
+        .card { background: var(--card); border-radius: 20px; padding: 20px; border: 1px solid #222; margin: 15px; display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--primary); transition: 0.3s; }
         .amt { font-size: 18px; font-weight: 900; font-family: 'Orbitron'; color: var(--accent); }
 
         .modal { display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: #0b0e16; width: 95%; max-width: 400px; padding: 25px; border-radius: 30px; border: 2px solid var(--primary); text-align: center; animation: modalBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-        @keyframes modalBounce { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
         input { width: 100%; padding: 15px; margin: 10px 0; background: #161a26; border: 1px solid #333; border-radius: 15px; color: white; outline: none; }
         .owl-box { background: #0d1117; border-radius: 15px; border: 1px solid #333; margin: 10px 0; max-height: 180px; overflow-y: auto; text-align: left; }
@@ -57,8 +48,6 @@
     </style>
 </head>
 <body onload="initApp()">
-
-    <div id="loader"><div class="spinner"></div><div style="margin-top:15px; font-family:'Orbitron'; color:var(--primary);">DAKU STORE</div></div>
 
     <div id="maintenance-screen">
         <i class="fas fa-tools" style="font-size:70px; color:var(--primary); margin-bottom:20px;"></i>
@@ -101,17 +90,17 @@
             </div>
 
             <div id="likes" class="section-container">
-                <div class="card"><div><h3>Weekly Starter</h3><p>1540 Likes</p></div><div style="text-align:right;"><span class="amt">₹100</span><br><button class="btn-buy" onclick="openPay('Weekly Likes','₹100')">BUY</button></div></div>
-                <div class="card"><div><h3>Pro Booster</h3><p>3300 Likes</p></div><div style="text-align:right;"><span class="amt">₹170</span><br><button class="btn-buy" onclick="openPay('Pro Likes','₹170')">BUY</button></div></div>
-                <div class="card"><div><h3>Elite Monthly</h3><p>6600 Likes</p></div><div style="text-align:right;"><span class="amt">₹300</span><br><button class="btn-buy" onclick="openPay('Elite Likes','₹300')">BUY</button></div></div>
-                <div class="card"><div><h3>Grandmaster</h3><p>19800 Likes</p></div><div style="text-align:right;"><span class="amt">₹800</span><br><button class="btn-buy" onclick="openPay('GM Likes','₹800')">BUY</button></div></div>
+                <div class="card"><div><h3>Weekly Starter</h3><p>1540 Total Likes</p></div><div style="text-align:right;"><span class="amt">₹100</span><br><button class="btn-buy" onclick="openPay('Weekly Likes','₹100')">BUY</button></div></div>
+                <div class="card"><div><h3>Pro Booster</h3><p>3300 Total Likes</p></div><div style="text-align:right;"><span class="amt">₹170</span><br><button class="btn-buy" onclick="openPay('Pro Likes','₹170')">BUY</button></div></div>
+                <div class="card"><div><h3>Elite Monthly</h3><p>6600 Total Likes</p></div><div style="text-align:right;"><span class="amt">₹300</span><br><button class="btn-buy" onclick="openPay('Elite Likes','₹300')">BUY</button></div></div>
+                <div class="card"><div><h3>Grandmaster</h3><p>19800 Total Likes</p></div><div style="text-align:right;"><span class="amt">₹800</span><br><button class="btn-buy" onclick="openPay('GM Likes','₹800')">BUY</button></div></div>
             </div>
 
             <div id="glory" class="section-container">
                 <div class="card"><div><h3>Mini Glory</h3><p>200k Boost</p></div><div style="text-align:right;"><span class="amt">₹200</span><br><button class="btn-buy" onclick="openPay('Mini Glory','₹200')">ORDER</button></div></div>
                 <div class="card"><div><h3>Starter Glory</h3><p>500k Boost</p></div><div style="text-align:right;"><span class="amt">₹800</span><br><button class="btn-buy" onclick="openPay('Starter Glory','₹800')">ORDER</button></div></div>
                 <div class="card"><div><h3>Mega Glory</h3><p>1M Boost</p></div><div style="text-align:right;"><span class="amt">₹1000</span><br><button class="btn-buy" onclick="openPay('Mega Glory','₹1000')">ORDER</button></div></div>
-                <div class="card"><div><h3>Full Match</h3><p>Full Match Boost</p></div><div style="text-align:right;"><span class="amt">₹1500</span><br><button class="btn-buy" onclick="openPay('Full Glory','₹1500')">ORDER</button></div></div>
+                <div class="card"><div><h3>Full Match</h3><p>Full Guild Glory</p></div><div style="text-align:right;"><span class="amt">₹1500</span><br><button class="btn-buy" onclick="openPay('Full Glory','₹1500')">ORDER</button></div></div>
             </div>
 
             <div id="guildwar" class="section-container">
@@ -121,7 +110,7 @@
         </div>
 
         <div id="orders-view" style="display:none; padding:15px;">
-            <h2 style="font-family:'Orbitron'; text-align:center; color:var(--primary); margin-bottom:20px;">LIVE TRACKING</h2>
+            <h2 style="font-family:'Orbitron'; text-align:center; color:var(--primary); margin-bottom:20px;">MY LIVE TRACKING</h2>
             <div id="history-list"></div>
         </div>
 
@@ -133,7 +122,7 @@
     </div>
 
     <div id="mModal" class="modal"><div class="modal-content"><h2 id="mName"></h2><p id="mPrice" style="color:var(--accent); font-weight:bold;"></p><input type="number" id="uid" placeholder="Enter UID"><div class="owl-box" id="ol"></div><div id="u_info" style="display:none; padding:10px; background:white; border-radius:15px; margin:10px 0;"><img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=upi://pay?pa=priyanshdaku@gmail.com" width="100"></div><input type="file" id="file" accept="image/*"><button class="btn-buy" id="subBtn" onclick="submitOrder()" style="width:100%; padding:15px; margin-top:10px;">SUBMIT ORDER</button><p onclick="closeModal('mModal')" style="cursor:pointer; margin-top:15px; font-size:12px; color:#555;">CANCEL</p></div></div>
-    <div id="profModal" class="modal"><div class="modal-content"><h2>PROFILE</h2><p id="p-email" style="margin:15px 0; color:#ccc;"></p><button class="btn-buy" style="background:red; width:100%;" onclick="auth.signOut(); location.reload();">LOGOUT</button><p onclick="closeModal('profModal')" style="margin-top:15px; cursor:pointer;">CLOSE</p></div></div>
+    <div id="profModal" class="modal"><div class="modal-content"><h2>USER PROFILE</h2><p id="p-email" style="margin:20px 0; color:#ccc;"></p><button class="btn-buy" style="background:red; width:100%;" onclick="auth.signOut(); location.reload();">LOGOUT</button><p onclick="closeModal('profModal')" style="margin-top:15px; cursor:pointer;">CLOSE</p></div></div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
@@ -145,17 +134,9 @@
         const auth = firebase.auth(), db = firebase.firestore();
         let uE="", srv="", isLoginMode = true;
 
-        const servers = [{n:"India 🇮🇳",p:"20ms"},{n:"Bangladesh 🇧🇩",p:"32ms"},{n:"Pakistan 🇵🇰",p:"45ms"},{n:"Nepal 🇳🇵",p:"28ms"},{n:"Singapore 🇸🇬",p:"15ms"},{n:"Brazil 🇧🇷",p:"160ms"},{n:"Indonesia 🇮🇩",p:"50ms"},{n:"Mina 🏜️",p:"55ms"},{n:"Europe 🇪🇺",p:"85ms"},{n:"Thailand 🇹🇭",p:"38ms"},{n:"Vietnam 🇻🇳",p:"40ms"},{n:"Taiwan 🇹🇼",p:"62ms"}];
+        const servers = [{n:"India 🇮🇳",p:"20ms"},{n:"Bangladesh 🇧🇩",p:"32ms"},{n:"Pakistan 🇵🇰",p:"45ms"},{n:"Nepal 🇳🇵",p:"28ms"},{n:"Singapore 🇸🇬",p:"15ms"},{n:"Brazil 🇧🇷",p:"160ms"},{n:"Indonesia 🇮🇩",p:"50ms"},{n:"Mina  desert_island",p:"55ms"},{n:"Europe 🇪🇺",p:"85ms"},{n:"Thailand 🇹🇭",p:"38ms"},{n:"Vietnam 🇻🇳",p:"40ms"},{n:"Taiwan 🇹🇼",p:"62ms"}];
 
         function initApp() {
-            // 🔥 FORCE LOADER KILLER (1.5s)
-            setTimeout(() => { 
-                const ldr = document.getElementById('loader');
-                ldr.style.opacity = '0';
-                setTimeout(() => ldr.style.display = 'none', 600);
-            }, 1500);
-
-            // 🔥 MAINTENANCE BLOCK LOGIC
             db.collection("settings").doc("maintenance").onSnapshot(doc => {
                 const isMaint = doc.data()?.status;
                 if(isMaint === true) {
@@ -164,12 +145,12 @@
                     document.getElementById('main-store-view').style.display = 'none';
                 } else {
                     document.getElementById('maintenance-screen').style.display = 'none';
-                    checkAuth();
+                    checkAuthStatus();
                 }
             });
         }
 
-        function checkAuth() {
+        function checkAuthStatus() {
             auth.onAuthStateChanged(user => {
                 if(user) {
                     uE = user.email; document.getElementById('p-email').innerText = uE;
@@ -183,11 +164,9 @@
             });
         }
 
-        // 🔥 DETAILED LIVE HISTORY (Admin Panel Style)
         function loadOrders() {
             db.collection("orders").where("email", "==", uE).orderBy("timestamp", "desc").onSnapshot(snap => {
                 const list = document.getElementById('history-list'); list.innerHTML = "";
-                if(snap.empty) { list.innerHTML = "<p style='text-align:center; color:#555;'>No orders found.</p>"; return; }
                 snap.forEach(doc => {
                     const o = doc.data(); 
                     const statusColor = o.status === "Pending" ? "orange" : "#00ffcc";
@@ -201,7 +180,7 @@
                             <div style="font-size:12px; color:#aaa; line-height:1.6; width:100%;">
                                 <div style="display:flex; justify-content:space-between;"><span>🆔 UID:</span> <b style="color:#fff;">${o.uid}</b></div>
                                 <div style="display:flex; justify-content:space-between;"><span>🌍 Server:</span> <b style="color:#fff;">${o.server}</b></div>
-                                <div style="display:flex; justify-content:space-between;"><span>💰 Price:</span> <b style="color:var(--accent);">${o.price || 'Verified'}</b></div>
+                                <div style="display:flex; justify-content:space-between;"><span>💰 Price:</span> <b style="color:var(--accent);">${o.price}</b></div>
                             </div>
                         </div>`;
                 });
@@ -220,8 +199,7 @@
                 if(data.success) {
                     const url = data.data.url;
                     await db.collection("orders").add({ email:uE, uid:uid, plan:pName, price:pPrice, server:srv, screenshot:url, status:"Pending", timestamp:firebase.firestore.FieldValue.serverTimestamp() });
-                    const msg = `🚨 *NEW ORDER* %0A👤 User: ${uE} %0A🆔 UID: ${uid} %0A🌍 Server: ${srv} %0A📦 Plan: ${pName} %0A💰 Price: ${pPrice} %0A📸 [PROOF](${url})`;
-                    fetch(`https://api.telegram.org/bot8677747394:AAEO10zDYYEA_jwC9HH7VoDOCOc7_4eSZDY/sendMessage?chat_id=6829395007&parse_mode=Markdown&text=${msg}`);
+                    fetch(`https://api.telegram.org/bot8677747394:AAEO10zDYYEA_jwC9HH7VoDOCOc7_4eSZDY/sendMessage?chat_id=6829395007&parse_mode=Markdown&text=🚨 *NEW ORDER* %0A👤 User: ${uE} %0A🆔 UID: ${uid} %0A🌍 Server: ${srv} %0A📦 Plan: ${pName} %0A💰 Price: ${pPrice} %0A📸 [PROOF](${url})`);
                     alert("Order Placed!"); closeModal('mModal');
                 }
             } catch(e) { alert("Error!"); }
@@ -234,4 +212,26 @@
             document.getElementById(id).classList.add('active'); btn.classList.add('active');
         }
         function showView(v) {
-            document.getElementById('home-view').style.d
+            document.getElementById('home-view').style.display = v==='home' ? 'block' : 'none';
+            document.getElementById('orders-view').style.display = v==='orders' ? 'block' : 'none';
+            document.getElementById('home-icon').classList.toggle('active', v==='home');
+            document.getElementById('order-icon').classList.toggle('active', v==='orders');
+        }
+        function openPay(n, p) {
+            document.getElementById('mName').innerText = n; document.getElementById('mPrice').innerText = p;
+            document.getElementById('mModal').style.display = 'flex';
+            const box = document.getElementById('ol'); box.innerHTML = "";
+            servers.forEach(s => {
+                const d = document.createElement('div'); d.className = "owl-item";
+                d.innerHTML = `<span>${s.n}</span><small style="color:var(--pink); font-weight:bold;">${s.p}</small>`;
+                d.onclick = () => { srv = s.n; Array.from(document.querySelectorAll('.owl-item')).forEach(i=>i.classList.remove('active')); d.classList.add('active'); document.getElementById('u_info').style.display='block'; };
+                box.appendChild(d);
+            });
+        }
+        async function handleAuth() {
+            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-pass').value;
+            if(!e || !p) return alert("Fill data!");
+            try { if(isLoginMode) await auth.signInWithEmailAndPassword(e, p); else await auth.createUserWithEmailAndPassword(e, p); } catch(err) { alert(err.message); }
+        }
+        function openProfile() { document.getElementById('profModal').style.display = 'flex'; }
+        functio
